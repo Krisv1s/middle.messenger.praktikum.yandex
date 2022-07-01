@@ -1,0 +1,64 @@
+@import '../../styles/_const';
+
+.button {
+  background: transparent;
+  border-color: transparent;
+  border: 0;
+  &-primary {
+    font-family: 'Inter';
+    height: 37px;
+    background-color: $primary_color;
+    color: $bg_color;
+    border-radius: 8px;
+    border: 0;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    width: 100%;
+    margin-top: 62px;
+    margin-bottom: 14px;
+  }
+  &-transparent {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 11px;
+    color: $primary_color;
+    width: 100%;
+    padding: 0px;
+  }
+  &-profile {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    color: $primary_color;
+    padding-left: 0px;
+  }
+  &-red {
+    color: $red_color;
+  }
+  &-back {
+    background-color: $primary_color;
+    width: 28px;
+    height: 28px;
+    border: 0px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  &-profile {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: $placeholder_color;
+  }
+}
