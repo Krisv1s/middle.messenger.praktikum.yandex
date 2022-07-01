@@ -8,15 +8,14 @@
 4. Препроцессор [SASS](https://sass-scss.ru/)
 5. Помощник в написание кода [ESLint](https://eslint.org/)
 
-
-
 ## Некоторые ссылки
 
-1. [Figma](https://www.figma.com/file/BHFUjpf3t3EkdDgc2x91jn/Chat_external_link-(Copy)?node-id=0%3A1)
+1. [Figma](<https://www.figma.com/file/BHFUjpf3t3EkdDgc2x91jn/Chat_external_link-(Copy)?node-id=0%3A1>)
+2. [Neiflify](https://symphonious-kulfi-2d4670.netlify.app/)
 
 ## Команды для использования
 
-1. Установка завимиостей 
+1. Установка завимиостей
    ```bash
    npm i
    ```
@@ -24,7 +23,7 @@
    ```bash
    npm run start
    ```
-3. Режим разработчика 
+3. Режим разработчика
    ```bash
    npm run dev
    ```
