@@ -1,0 +1,63 @@
+@import '../../styles/_const';
+
+.input_block {
+  position: relative;
+  margin-top: 32px;
+  .label {
+    color: $placeholder_color;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 9px;
+    position: absolute;
+    transition: 0.2s bottom, 0.2s font-size;
+    bottom: 0;
+    margin-bottom: 8px;
+    margin-left: -100%;
+  }
+  .input {
+    box-sizing: border-box;
+    position: relative;
+    font-family: 'Inter';
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $primary_color;
+    outline: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+
+    &:focus {
+      + .label {
+        font-size: 9px;
+        bottom: 95%;
+      }
+    }
+    &:not(:placeholder-shown) + .label {
+      font-size: 9px;
+      bottom: 95%;
+    }
+
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+}
+
+.input-search {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: center;
+  border-radius: 5px;
+  width: 290px;
+  height: 32px;
+  border: transparent;
+  background: $search_color;
+  &::placeholder {
+    color: $placeholder_color;
+  }
+}

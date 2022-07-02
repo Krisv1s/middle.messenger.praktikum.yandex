@@ -1,0 +1,29 @@
+@import '../../styles/_const';
+
+.block-error {
+  display: flex;
+  flex-direction: column;
+}
+
+.code-error {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: $dark_color;
+  margin-bottom: 20px;
+}
+
+.text-error {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: $dark_color;
+  margin-top: 0px;
+  margin-bottom: 69px;
+}

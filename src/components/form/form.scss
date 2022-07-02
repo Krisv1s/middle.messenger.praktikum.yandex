@@ -1,0 +1,29 @@
+@import '../../styles/_const';
+
+.form {
+  width: 340px;
+  min-height: 450px;
+  background: $bg_color;
+  border-radius: 12px;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 /0.14);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: space-between;
+  &-title {
+    text-align: center;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    color: $dark_color;
+    margin: 20px;
+    margin-bottom: 57px;
+  }
+
+  &-second {
+    display: flex;
+    flex-direction: column;
+  }
+}

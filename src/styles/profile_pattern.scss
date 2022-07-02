@@ -1,0 +1,22 @@
+@import './_const.scss';
+
+.profile-block {
+  &-left {
+    display: flex;
+    background: $gray_color;
+    min-width: 64px;
+    width: 64px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid $line_color;
+  }
+  &-right {
+    display: flex;
+    width: 510px;
+    flex-direction: column;
+  }
+}

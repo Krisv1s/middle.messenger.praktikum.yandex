@@ -1,0 +1,40 @@
+@import './_const.scss';
+
+.chats {
+  display: flex;
+  width: 100vw;
+  box-sizing: border-box;
+  &-left {
+    height: 100vh;
+    width: 310px;
+    border-right: 1px solid $line_color;
+    background: $gray_color;
+    display: flex;
+    flex-direction: column;
+    &-button {
+      margin-top: 21px;
+      align-self: flex-end;
+    }
+    &-input {
+      display: flex;
+      justify-content: center;
+      margin-top: 23px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid $line_color;
+    }
+  }
+  &-right {
+    display: flex;
+    width: calc(100% - 311px);
+    justify-content: center;
+    align-items: center;
+    &-text {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 12px;
+      color: $placeholder_color;
+    }
+  }
+}

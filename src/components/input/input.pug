@@ -1,0 +1,4 @@
+mixin Input(type = 'text', placeholder, id, name)
+    .input_block
+        input(class="input", type=type, id=id, placeholder=placeholder, name=name)
+        label(class="label",for=id)=placeholder
