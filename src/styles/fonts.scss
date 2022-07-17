@@ -1,4 +1,11 @@
 @font-face {
   font-family: 'Inter';
-  src: url('../../static/fonts/Inter-Medium.ttf');
+  font-style: normal;
+  font-weight: 500;
+  src: url('../../static/fonts/inter-v11-latin_cyrillic-500.eot'); /* IE9 Compat Modes */
+  src: local(''), url('../../static/fonts/inter-v11-latin_cyrillic-500.eot?#iefix') format('embedded-opentype'),
+    url('../../static/fonts/inter-v11-latin_cyrillic-500.woff2') format('woff2'),
+    url('../../static/fonts/inter-v11-latin_cyrillic-500.woff') format('woff'),
+    url('../../static/fonts/inter-v11-latin_cyrillic-500.ttf') format('truetype'),
+    url('../../static/fonts/inter-v11-latin_cyrillic-500.svg#Inter') format('svg');
 }
