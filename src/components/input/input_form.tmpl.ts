@@ -1,0 +1,10 @@
+const inputFormTmpl = `
+div
+    div(style="position: relative;")
+        !=input
+        label(class="label",for=id)=placeholder
+    div.error_validation
+        !=validMsg
+`;
+
+export default inputFormTmpl;

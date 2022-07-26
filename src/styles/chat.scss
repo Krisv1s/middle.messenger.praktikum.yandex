@@ -22,6 +22,10 @@
       padding-bottom: 14px;
       border-bottom: 1px solid $line_color;
     }
+    &-list {
+      list-style: none;
+      padding: 0;
+    }
   }
   &-right {
     display: flex;

@@ -1,5 +1,5 @@
-mixin Button(value, type)
-    button(class=type)
+mixin Button(value, styleType, type)
+    button(class=styleType, type=type)
         != value
         if block 
             block

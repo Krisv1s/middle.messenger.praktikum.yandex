@@ -3,7 +3,7 @@ extends ../layout/pattern.pug
 include ../components/form/form.pug
 include ../components/input/input.pug
 include ../components/button/button.pug
-
+include ../components/link/link.pug
 
 block pageHead
     title Вход
@@ -17,13 +17,12 @@ block pageBody
         }, {
             "type": "password",
             "placeholder": "Пароль",
-            "name": "password"
         }];
     +Form()
         .form-first
-            h2(class="form-title") Вход
+            h1(class="form-title") Вход
             each val, index in inputs
-                +Input(val.type, val.placeholder, `input${index}`, val.name)
+                +Input(val.type, val.placeholder, `input${index}`, val.name || val.type)
         .form-second
-            +Button("Авторизоваться", "button-primary")
-            +Button("Нет аккаунта?", "button button-transparent")
+            +Button("Авторизоваться", "button-primary", "submit")
+            +Link("Нет аккаунта?", "button button-transparent")

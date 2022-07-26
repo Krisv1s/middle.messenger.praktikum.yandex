@@ -3,6 +3,7 @@ extends ../layout/pattern.pug
 include ../components/form/form.pug
 include ../components/input/input.pug
 include ../components/button/button.pug
+include ../components/link/link.pug
 
 block pageHead
     title Регистрация
@@ -12,7 +13,6 @@ block pageBody
         const inputs = [{
             "type": "email",
             "placeholder": "Почта",
-            "name": "email"
         }, {
             "type": "text",
             "placeholder": "Логин",
@@ -32,17 +32,15 @@ block pageBody
         }, {
             "type": "password",
             "placeholder": "Пароль",
-            "name": "password"
         }, {
             "type": "password",
             "placeholder": "Пароль (ещё раз)",
-            "name": "password"
         }];
     +Form()
         .form-first
-            h2(class="form-title") Регистрация
+            h1(class="form-title") Регистрация
             each val, index in inputs
-                +Input(val.type, val.placeholder, `input${index}`, val.name)
+                +Input(val.type, val.placeholder, `input${index}`, val.name || val.type)
         .form-second
-            +Button("Зарегистрироваться", "button-primary")
-            +Button("Войти", "button button-transparent")
+            +Button("Зарегистрироваться", "button-primary", "submit")
+            +Link("Войти", "button button-transparent")

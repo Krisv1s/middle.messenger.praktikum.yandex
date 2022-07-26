@@ -16,8 +16,9 @@ block pageBody
                         <path d="M1 9L5 5L1 1" stroke="#999999"/>
                     </svg>
             .chats-left-input
-                input(class="input-search" placeholder="Поиск")
-            .chats-left-list
+                form 
+                    input(class="input-search" placeholder="Поиск")
+            ul.chats-left-list
                 +ChatLink("https://fakeimg.pl/47x47/?text=png", "Андрей", "Изображение", "10:49", "2")
                 +ChatLink("https://fakeimg.pl/47x47/?text=png", "Киноклуб", `<span style="color:#1E1E1E
                     ">Вы:</span> стикер`, "12:00")

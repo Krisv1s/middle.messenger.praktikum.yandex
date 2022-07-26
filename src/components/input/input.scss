@@ -3,6 +3,7 @@
 .input_block {
   position: relative;
   margin-top: 32px;
+
   .label {
     color: $placeholder_color;
     font-style: normal;
@@ -60,4 +61,26 @@
   &::placeholder {
     color: $placeholder_color;
   }
+}
+
+.input-edit {
+  text-align: right;
+  box-sizing: border-box;
+  position: relative;
+  font-family: 'Inter';
+  width: 100%;
+  border: none;
+  outline: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  color: $placeholder_color;
+  line-height: 13px;
+}
+
+.error_validation {
+  margin-top: 7px;
+  color: $error_color;
+  font-size: 8px;
+  line-height: 8px;
 }

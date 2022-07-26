@@ -8,6 +8,7 @@
 3. Шаблонизатор [PUG](https://pugjs.org/api/getting-started.html)
 4. Препроцессор [SASS](https://sass-scss.ru/)
 5. Помощник в написание кода [ESLint](https://eslint.org/)
+6. И стилей [Stylelint](https://stylelint.io/)
 
 ## Некоторые ссылки
 
@@ -16,7 +17,7 @@
 
 ## Команды для использования
 
-1. Установка завимиостей
+1. Установка зависимостей
    ```bash
    npm i
    ```

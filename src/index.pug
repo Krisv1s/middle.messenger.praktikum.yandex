@@ -1,15 +1,7 @@
 extends ./layout/pattern.pug
 
+block pageHead
+    title Чат
+
 block pageBody
-    p Это основная страница!
-    a(class='button' href='./pages/singup.pug') Singup
-    br
-    a(class='button' href='./pages/singin.pug') Singin
-    br
-    a(class='button' href='./pages/404.pug') 404
-    br
-    a(class='button' href='./pages/505.pug') 505
-    br
-    a(class='button' href='./pages/profile.pug') Profile
-    br
-    a(class='button' href='./pages/chat.pug') Chat
+    .app
