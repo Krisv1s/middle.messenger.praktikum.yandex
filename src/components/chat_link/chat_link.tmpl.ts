@@ -4,11 +4,11 @@ li.chat
     .chat-block
         .chat-block-left
             span.chat-name!=title
-            span.chat-message!=Изображение
+            span.chat-message!=content
         .chat-block-right
-            span.chat-date 10:49
-            if 2 
-                span.chat-unread=2
+            span.chat-date!=time
+            if unread_count 
+                span.chat-unread!=unread_count
 `;
 
 export default chatLink;

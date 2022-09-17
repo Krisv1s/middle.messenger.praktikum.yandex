@@ -237,7 +237,9 @@ export default class Chats extends Block {
       chatLinkList.push(
         new ChatLink({
           title: key.title,
-          unread_count: 0,
+          last_message: key.last_message,
+          time: key.last_message.time,
+          unread_count: key.unread_count,
           events: {
             click: (e) => {
               e.preventDefault();

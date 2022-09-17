@@ -8,6 +8,7 @@ type ChatLinkTypes = {
   avatar?: string;
   title: string;
   last_message?: string;
+  time: string;
   unread_count: number;
   events?: Record<string, (e: Event) => void>;
 };
@@ -38,8 +39,12 @@ export default class ChatLink extends Block {
   }
 
   public render() {
+    console.log(this.props);
     return this.compile(chatLink, {
       title: this.props.title,
+      content: this.props?.last_message?.content || '',
+      unread_count: this.props.unread_count,
+      time: `${new Date(this.props.time).getHours()}:${new Date(this.props.time).getMinutes()}`,
     });
   }
 }
