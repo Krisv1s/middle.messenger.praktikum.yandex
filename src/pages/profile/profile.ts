@@ -16,8 +16,7 @@ export default class Profile extends Block {
     super('div');
     if (!this.userInfo?.id) {
       AuthAPI.getUserInfo().then(() => {
-        this.eventBus.emit(Block.EVENTS.FLOW_CDU, Store.getState());
-        // if (!Store.getState()?.user?.id) Router.go('/');
+        if (!Store.getState()?.user?.id) Router.go('/');
       });
     }
   }
