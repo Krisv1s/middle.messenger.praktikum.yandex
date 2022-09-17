@@ -1,40 +1,52 @@
 const profileTmpl = `
 .profile-block
+            form(class='form' style="position: fixed;display: none;" id="password_edit")
+                .form-first
+                    h1(class="form-title") Смена пароля
+                    !=inputPasswordCurrect
+                    !=inputPassword
+                    !=inputPasswordReplay
+                .form-second
+                    !=buttonSubmit
+                    !=buttonHide
+            form(class='form' style="position: fixed;display: none;" id="avatar_edit")
+                .form-first
+                    h1(class="form-title") Смена аватарки
+                    !=inputFile
+                .form-second
+                    !=buttonSubmitAvatar
+                    !=buttonHideAvatar
             .profile-block-left
-                a(class='button-back' href='/') 
-                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="13" y="6.80005" width="11" height="1.6" transform="rotate(-180 13 6.80005)" fill="white"/>
-                        <path d="M6 11L2 6L6 1" stroke="white" stroke-width="1.6"/>
-                    </svg>
+                !=buttonGoBack
             .profile-block-right
                 .profile
-                        img.profile-avatar(src="https://fakeimg.pl/130x130/?text=png")
-                        h1.profile-name Иван
+                        !=buttonChangeAvatar
+                        h1.profile-name!=firstNameLine
                         .profile-info
                             -
                                 const profileINfo = [{
                                     "name": "Почта",
-                                    "value": "pochta@yandex.ru",
+                                    "value": emailLine,
                                 }, {
                                     "name": "Логин",
-                                    "value": "ivanivanov",
+                                    "value": loginLine,
                                 }, {
                                     "name": "Имя",
-                                    "value": "Иван",
+                                    "value": firstNameLine2,
                                 }, {
                                     "name": "Фамилия",
-                                    "value": "Иванов",
+                                    "value": secondNameLine,
                                 }, {
                                     "name": "Имя в чате",
-                                    "value": "Иван",
+                                    "value": displayNameLine,
                                 }, {
                                     "name": "Телефон",
-                                    "value": "+7 (909) 967 30 30",
+                                    "value": phoneLine,
                                 }];
                             each val in profileINfo
                                 .profile-info-block
                                     .profile-info-block-name= val.name
-                                    .profile-info-block-value= val.value
+                                    .profile-info-block-value!= val.value
                         .profile-buttons
                             .profile-buttons-block
                                 !=buttonChangeInfo

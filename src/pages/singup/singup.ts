@@ -3,6 +3,8 @@ import Block from '../../utils/Block';
 import singupTmpl from './singup.tmpl';
 import Button from '../../components/button/button';
 import InputForm from '../../components/input/input_form';
+import Router from '../../utils/Router';
+import AuthAPI from '../../utils/API/AuthAPI';
 
 export default class Singup extends Block {
   constructor() {
@@ -74,9 +76,6 @@ export default class Singup extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          for (const key of inputs) {
-            key.validate();
-          }
           console.log({
             email: inputEmail.value,
             login: inputLogin.value,
@@ -86,13 +85,34 @@ export default class Singup extends Block {
             password: inputPassword.value,
             passwordReplay: inputPasswordReplay.value,
           });
+          let resValidate = true;
+          for (const key of inputs) {
+            if (!key.validate()) resValidate = false;
+          }
+          if (!resValidate) return;
+          AuthAPI.signUp({
+            first_name: inputFirstName.value,
+            second_name: inputSecondName.value,
+            login: inputLogin.value,
+            email: inputEmail.value,
+            password: inputPassword.value,
+            phone: inputPhone.value,
+          }).then(() => {
+            AuthAPI.getUserInfo();
+          });
+          Router.go('/');
         },
       },
     });
     const buttonLink = new Button('a', {
       class: 'button button-transparent',
       value: 'Войти',
-      href: '/singin',
+      events: {
+        click: (e) => {
+          e.preventDefault();
+          Router.go('/');
+        },
+      },
     });
     return {
       inputEmail,

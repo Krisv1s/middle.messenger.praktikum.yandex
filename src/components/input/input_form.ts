@@ -44,6 +44,7 @@ export default class InputForm extends Block {
     } else {
       this.setProps({ ...this.props, validMsg: '' });
     }
+    return res;
   }
 
   public get value(): string {

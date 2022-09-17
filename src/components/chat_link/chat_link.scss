@@ -6,6 +6,9 @@
   padding-top: 12px;
   padding-bottom: 12px;
   height: 47px;
+  &:hover {
+    background: #e4edfd;
+  }
   &-img {
     margin-left: 10px;
     margin-right: 10px;
@@ -53,9 +56,7 @@
     color: $bg_color;
     background: $primary_color;
   }
-  &:last-child {
-    border-bottom: transparent;
-  }
+
   &-block {
     display: flex;
     width: 100%;

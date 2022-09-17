@@ -3,6 +3,8 @@ import Block from '../../utils/Block';
 import singinTmpl from './singin.tmpl';
 import Button from '../../components/button/button';
 import InputForm from '../../components/input/input_form';
+import Router from '../../utils/Router';
+import AuthAPI from '../../utils/API/AuthAPI';
 
 export default class Singin extends Block {
   constructor() {
@@ -36,20 +38,38 @@ export default class Singin extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          for (const key of inputs) {
-            key.validate();
-          }
           console.log({
             login: inputLogin.value,
             password: inputPassword.value,
           });
+          let resValidate = true;
+          for (const key of inputs) {
+            if (!key.validate()) resValidate = false;
+          }
+          if (!resValidate) return;
+
+          AuthAPI.signIn({
+            login: inputLogin.value,
+            password: inputPassword.value,
+          })
+            .then(() => {
+              AuthAPI.getUserInfo().then(() => {
+                Router.go('/messenger');
+              });
+            })
+            .catch(() => {});
         },
       },
     });
     const buttonLink = new Button('a', {
       class: 'button button-transparent',
       value: 'Нет аккаунта?',
-      href: '/singup',
+      events: {
+        click: (e) => {
+          e.preventDefault();
+          Router.go('/sign-up');
+        },
+      },
     });
     return {
       inputLogin,

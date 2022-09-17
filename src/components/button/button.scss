@@ -18,6 +18,24 @@
     margin-top: 62px;
     margin-bottom: 14px;
   }
+  &-edit {
+    font-family: 'Inter';
+    height: 37px;
+    color: $dark_color;
+    border-radius: 8px;
+    border: 0;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 210px;
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
   &-transparent {
     font-family: 'Inter';
     font-style: normal;
@@ -60,5 +78,16 @@
     justify-content: center;
     display: flex;
     color: $placeholder_color;
+    margin-right: 5px;
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &-send {
+    background: $primary_color;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
   }
 }

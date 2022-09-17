@@ -1,15 +1,11 @@
 const profileEditTmpl = `
 .profile-block
             .profile-block-left
-                a(class='button-back' href='/') 
-                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="13" y="6.80005" width="11" height="1.6" transform="rotate(-180 13 6.80005)" fill="white"/>
-                        <path d="M6 11L2 6L6 1" stroke="white" stroke-width="1.6"/>
-                    </svg>
+                !=buttonGoBack
             .profile-block-right
                 .profile
-                        img.profile-avatar(src="https://fakeimg.pl/130x130/?text=png")
-                        h1.profile-name Иван
+                        !=userAvatar
+                        h1.profile-name!=firstNameLine
                         .profile-info
                             -
                                 const profileINfo = [{
@@ -38,6 +34,7 @@ const profileEditTmpl = `
                         .profile-buttons
                             .profile-buttons-block
                                 !=buttonSave
+                                !=buttonBack
 `;
 
 export default profileEditTmpl;

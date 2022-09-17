@@ -11,6 +11,8 @@
     background: $gray_color;
     display: flex;
     flex-direction: column;
+    overflow: auto;
+    max-height: 100vh;
     &-button {
       margin-top: 21px;
       align-self: flex-end;
@@ -25,6 +27,7 @@
     &-list {
       list-style: none;
       padding: 0;
+      margin-top: 0px;
     }
   }
   &-right {
@@ -39,6 +42,144 @@
       font-size: 12px;
       line-height: 12px;
       color: $placeholder_color;
+      position: fixed;
+    }
+    &-block {
+      height: 100%;
+      width: 100%;
+      z-index: 1;
+    }
+    &-header {
+      height: 54px;
+      border-bottom: 1px solid #eaeaea;
+      margin-left: 20px;
+      margin-right: 20px;
+      display: flex;
+      justify-content: space-between;
+      &-left {
+        align-self: center;
+        display: flex;
+        align-items: center;
+      }
+      &-right {
+        display: flex;
+        align-items: center;
+      }
+      &-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+      }
+      &-name {
+        margin-left: 10px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 13px;
+        color: $dark_color;
+      }
+    }
+    &-chat {
+      height: calc(100vh - 110px);
+      background: $bg_color;
+      padding-top: 30px;
+      box-sizing: border-box;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      &-msg {
+        margin-left: 10px;
+        margin-right: 10px;
+        background: $msg_color;
+        max-width: 40%;
+        border-radius: 0 15px 15px 15px;
+        padding: 11px;
+        word-wrap: break-word;
+        margin-bottom: 30px;
+        &-my {
+          background: #e4edfd;
+          align-self: flex-end;
+          border-radius: 15px 15px 0 15px;
+        }
+        &-text {
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 15px;
+          color: $dark_color;
+        }
+      }
+    }
+    &-footer {
+      height: 54px;
+      border-top: 1px solid #eaeaea;
+      margin-left: 20px;
+      margin-right: 20px;
+      display: flex;
+      justify-content: space-between;
+      &-left {
+        align-self: center;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-right: 10px;
+      }
+      &-right {
+        align-self: center;
+        display: flex;
+        align-items: center;
+      }
     }
   }
+}
+
+.dropbtn {
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: $bg_color;
+  min-width: 160px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  background: #ffffff;
+  z-index: 1;
+  right: 20px;
+  top: 20px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
 }

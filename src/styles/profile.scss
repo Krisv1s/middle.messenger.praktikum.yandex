@@ -58,6 +58,8 @@
     align-self: flex-start;
     place-items: flex-start;
     &-block {
+      display: flex;
+      flex-direction: column;
       border-bottom: 1px solid $line_color;
       padding-bottom: 10px;
       margin-bottom: 5px;

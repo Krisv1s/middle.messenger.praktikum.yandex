@@ -1,3 +1,4 @@
-const buttonTmpl = 'span !{value}';
+const buttonTmpl = `span 
+                        !=value`;
 
 export default buttonTmpl;

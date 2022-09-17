@@ -29,6 +29,9 @@
     "@typescript-eslint/no-empty-function": 0,
     "comma-dangle": 0,
     "@typescript-eslint/no-explicit-any": 0,
-    "no-useless-constructor": 0
+    "no-useless-constructor": 0,
+    "linebreak-style": 0,
+    "implicit-arrow-linebreak": 0,
+    "object-curly-newline": 0
   }
 }
