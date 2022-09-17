@@ -17,6 +17,8 @@ export default class InputEdit extends Block {
     super('div', props);
   }
 
+  public update(): void {}
+
   protected getChildren(): Record<string, Block> {
     const input = new Input({
       name: this.props.name,

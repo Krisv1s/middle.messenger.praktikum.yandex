@@ -14,6 +14,8 @@ export default class FailWindow extends Block {
     super('div', props);
   }
 
+  public update(): void {}
+
   protected getChildren(): Record<string, Block> {
     const button = new Button('a', {
       class: 'button button-transparent',

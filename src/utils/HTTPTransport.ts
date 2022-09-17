@@ -40,8 +40,20 @@ export class HTTPTransport {
 
   public request = (url: string, options: IOptions, queryData: Record<string, unknown> = {}) => {
     console.log(options);
-    const { headers = {}, method, body, credentials, data } = options;
+    const { headers = {}, method = MethodTypes.GET, body, credentials, data } = options;
     return new Promise((resolve, reject) => {
+      const _headers = new Headers();
+
+      if (body) {
+        _headers.append('content-type', 'application/json');
+      }
+
+      _headers.append('accept', 'application/json');
+
+      for (const [key, value] of Object.entries(headers)) {
+        _headers.append(key, value);
+      }
+
       const xhr = new XMLHttpRequest();
       let urlGet = url;
       if (method === MethodTypes.GET && queryData) {
@@ -50,11 +62,10 @@ export class HTTPTransport {
 
       xhr.open(method, urlGet);
 
-      if (headers) {
-        Object.keys(headers).forEach((key) => {
-          xhr.setRequestHeader(key, headers[key]);
-        });
+      for (const [key, value] of _headers.entries()) {
+        xhr.setRequestHeader(key, value);
       }
+
       if (credentials) {
         xhr.withCredentials = true;
       }

@@ -18,6 +18,8 @@ export default class InputForm extends Block {
     super('div', props);
   }
 
+  public update(): void {}
+
   protected getAttributes(): Record<string, string> {
     return { class: 'input_block' };
   }

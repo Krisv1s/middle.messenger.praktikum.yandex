@@ -11,6 +11,8 @@ export default class Singup extends Block {
     super('form');
   }
 
+  public update(): void {}
+
   protected getAttributes(): Record<string, string> {
     return {
       class: 'form',
@@ -97,10 +99,18 @@ export default class Singup extends Block {
             email: inputEmail.value,
             password: inputPassword.value,
             phone: inputPhone.value,
-          }).then(() => {
-            AuthAPI.getUserInfo();
+          }).then((res2) => {
+            if (res2.currentTarget.status === 200) {
+              AuthAPI.getUserInfo().then((res) => {
+                console.log(res);
+                Router.go('/messenger');
+              });
+            } else if (res2.currentTarget.status >= 500) {
+              this.props.msg = 'Server Error';
+            } else {
+              this.props.msg = JSON.parse(res2.currentTarget.response).reason;
+            }
           });
-          Router.go('/');
         },
       },
     });
@@ -128,6 +138,6 @@ export default class Singup extends Block {
   }
 
   render(): DocumentFragment {
-    return this.compile(singupTmpl);
+    return this.compile(singupTmpl, { msg: this.props.msg });
   }
 }

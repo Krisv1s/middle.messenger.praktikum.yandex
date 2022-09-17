@@ -9,6 +9,8 @@ const profileTmpl = `
                 .form-second
                     !=buttonSubmit
                     !=buttonHide
+                    if msg1
+                        span.error_message!=msg1
             form(class='form' style="position: fixed;display: none;" id="avatar_edit")
                 .form-first
                     h1(class="form-title") Смена аватарки
@@ -16,6 +18,8 @@ const profileTmpl = `
                 .form-second
                     !=buttonSubmitAvatar
                     !=buttonHideAvatar
+                    if msg2
+                        span.error_message!=msg2
             .profile-block-left
                 !=buttonGoBack
             .profile-block-right

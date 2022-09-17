@@ -3,6 +3,7 @@ import ChatLink from '../../components/chat_link/chat_link';
 import ChatMessage from '../../components/chat_msg/chat_msg';
 import Input from '../../components/input/input';
 import InputForm from '../../components/input/input_form';
+import AuthAPI from '../../utils/API/AuthAPI';
 import ChatAPI from '../../utils/API/ChatAPI';
 import Block from '../../utils/Block';
 import renderDOM from '../../utils/renderDOM';
@@ -15,6 +16,9 @@ export default class Chats extends Block {
   constructor() {
     super('div');
     ChatAPI.getChats();
+    AuthAPI.getUserInfo().then(() => {
+      if (!Store.getState()?.user?.id) Router.go('/');
+    });
   }
 
   protected getChildren(): Record<string, Block> {

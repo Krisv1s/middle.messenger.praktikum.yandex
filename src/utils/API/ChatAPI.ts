@@ -24,11 +24,7 @@ class ChatAPI extends CoreAPI {
   public createChat(data: Record<string, any>) {
     const options: Options = {
       method: MethodTypes.POST,
-      headers: {
-        'content-type': 'application/json',
-      },
       credentials: true,
-      mode: 'cors',
       body: data,
     };
     return this.http.post(this.url + ListUrl.createChat, options);
@@ -37,11 +33,7 @@ class ChatAPI extends CoreAPI {
   public getChatToken(data: string, id: string) {
     const options: Options = {
       method: MethodTypes.POST,
-      headers: {
-        'content-type': 'application/json',
-      },
       credentials: true,
-      mode: 'cors',
       body: {},
     };
     return this.http.post(this.url + ListUrl.chatToken + data, options).then((res) => {
@@ -53,11 +45,7 @@ class ChatAPI extends CoreAPI {
   public addUser(data: Record<string, any>) {
     const options: Options = {
       method: MethodTypes.PUT,
-      headers: {
-        'content-type': 'application/json',
-      },
       credentials: true,
-      mode: 'cors',
       body: data,
     };
     return this.http.put(this.url + ListUrl.addUser, options);
@@ -70,11 +58,7 @@ class ChatAPI extends CoreAPI {
   public deleteUser(data: Record<string, any>) {
     const options: Options = {
       method: MethodTypes.PUT,
-      headers: {
-        'content-type': 'application/json',
-      },
       credentials: true,
-      mode: 'cors',
       body: data,
     };
     return this.http.delete(this.url + ListUrl.deleteUser, options);

@@ -11,6 +11,8 @@ const singupTmpl = `
 .form-second
     !=buttonSingup
     !=buttonLink
+    if msg
+        span.error_message!=msg
 `;
 
 export default singupTmpl;

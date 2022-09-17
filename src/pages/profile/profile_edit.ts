@@ -22,6 +22,8 @@ export default class ProfileEdit extends Block {
     }
   }
 
+  public update(): void {}
+
   protected getChildren(): Record<string, Block> {
     const inputEmail = new InputEdit({ name: 'email', value: Store.getState()?.user?.email || '' });
     const inputLogin = new InputEdit({ name: 'login', value: Store.getState()?.user?.login || '' });

@@ -12,11 +12,7 @@ class AuthAPI extends CoreAPI {
   public signUp(data: Record<string, any>) {
     const options: Options = {
       method: MethodTypes.POST,
-      headers: {
-        'content-type': 'application/json',
-      },
       credentials: true,
-      mode: 'cors',
       body: data,
     };
     return this.http.post(this.url + ListUrl.signUp, options);
@@ -25,12 +21,7 @@ class AuthAPI extends CoreAPI {
   public signIn(data: Record<string, any>) {
     const options: Options = {
       method: MethodTypes.POST,
-      headers: {
-        'content-type': 'application/json',
-        accept: 'application/json',
-      },
       credentials: true,
-      mode: 'cors',
       body: data,
     };
     return this.http.post(this.url + ListUrl.signIn, options);
@@ -40,10 +31,10 @@ class AuthAPI extends CoreAPI {
     const options: Options = {
       method: MethodTypes.GET,
       credentials: true,
-      mode: 'cors',
     };
     return this.http.get(this.url + ListUrl.user, options).then((res) => {
       Store.setState('user', JSON.parse(res.currentTarget.response));
+      return res;
     });
   }
 
@@ -51,9 +42,10 @@ class AuthAPI extends CoreAPI {
     const options: Options = {
       method: MethodTypes.POST,
       credentials: true,
-      mode: 'cors',
     };
-    return this.http.post(this.url + ListUrl.logout, options);
+    return this.http.post(this.url + ListUrl.logout, options).then(() => {
+      Store.clear();
+    });
   }
 }
 

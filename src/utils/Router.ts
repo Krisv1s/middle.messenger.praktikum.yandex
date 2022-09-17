@@ -14,6 +14,8 @@ class Router {
 
   public history: History;
 
+  public curStore: string;
+
   constructor() {
     this.routes = [];
     this.history = window.history;
@@ -51,17 +53,17 @@ class Router {
   private onRoute(pathname: string): void {
     const route = this.getRoute(pathname);
 
-    if (this.currentRoute && this.currentRoute !== route) {
+    if (this.currentRoute) {
       this.currentRoute.leave();
     }
-    let curStore = JSON.stringify(Store.getState());
+    this.curStore = JSON.stringify(Store.getState());
     Store.on(StoreEvents.Updated, () => {
-      if (curStore !== JSON.stringify(Store.getState())) {
+      if (this.curStore !== JSON.stringify(Store.getState())) {
         console.log(Store.getState());
-        curStore = JSON.stringify(Store.getState());
+        this.curStore = JSON.stringify(Store.getState());
         if (this.currentRoute) {
           this.currentRoute.leave();
-          route.render();
+          this.currentRoute.render();
         }
       }
     });

@@ -22,6 +22,8 @@ export default class Profile extends Block {
     }
   }
 
+  public update(): void {}
+
   protected getChildren(): Record<string, Block> {
     const emailLine = new ProfileUserLine('div', {
       name: 'Почта',
@@ -179,7 +181,7 @@ export default class Profile extends Block {
     const buttonChangeAvatar = new Button('a', {
       class: 'button',
       value: `<img class="profile-avatar" src=${
-        Store.getState().user.avatar
+        Store.getState()?.user?.avatar
           ? `https://ya-praktikum.tech/api/v2/resources${Store.getState().user.avatar}`
           : 'https://fakeimg.pl/130x130/?text=png'
       }>`,

@@ -1,4 +1,5 @@
 const ListUrl = {
+  main: 'https://ya-praktikum.tech/api/v2',
   signIn: '/auth/signin',
   signUp: '/auth/signup',
   logout: '/auth/logout',

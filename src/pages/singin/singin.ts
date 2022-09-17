@@ -17,6 +17,8 @@ export default class Singin extends Block {
     };
   }
 
+  public update(): void {}
+
   protected getChildren(): Record<string, Block> {
     const inputLogin = new InputForm({
       type: 'text',
@@ -51,13 +53,18 @@ export default class Singin extends Block {
           AuthAPI.signIn({
             login: inputLogin.value,
             password: inputPassword.value,
-          })
-            .then(() => {
-              AuthAPI.getUserInfo().then(() => {
+          }).then((res2) => {
+            if (res2.currentTarget.status === 200) {
+              AuthAPI.getUserInfo().then((res) => {
+                console.log(res);
                 Router.go('/messenger');
               });
-            })
-            .catch(() => {});
+            } else if (res2.currentTarget.status >= 500) {
+              this.props.msg = 'Server Error';
+            } else {
+              this.props.msg = JSON.parse(res2.currentTarget.response).reason;
+            }
+          });
         },
       },
     });
@@ -80,6 +87,6 @@ export default class Singin extends Block {
   }
 
   render(): DocumentFragment {
-    return this.compile(singinTmpl);
+    return this.compile(singinTmpl, { msg: this.props.msg });
   }
 }
