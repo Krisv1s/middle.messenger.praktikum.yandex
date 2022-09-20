@@ -2,17 +2,70 @@ const chatsTmpl = `
 .chats
         .chats-left
             .chats-left-button
-                a(class='button button-profile-link' href='/') Профиль
-                    <svg style="margin-left:8px" width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 9L5 5L1 1" stroke="#999999"/>
-                    </svg>
+                !=buttonProfile
             .chats-left-input
-                form 
-                    input(class="input-search" placeholder="Поиск")
+                input(class="input-search" placeholder="Поиск")
             ul.chats-left-list
-                !=chatFirst
-                !=chatSecond
+                li.chat
+                    img.chat-img(alt="")
+                    .chat-block
+                        .chat-block-left
+                            span.chat-name New chat
+                        .chat-block-right
+                            !=buttonNewChat
         .chats-right
-            span.chats-right-text Выберите чат чтобы отправить сообщение`;
+            form(class='form' style="position: fixed;display: none;" id="create_chat")
+                .form-first
+                    h1(class="form-title") Новый чатик
+                    !=inputNameChat
+                .form-second
+                    !=buttonCreateChat
+                    !=buttonHide
+            form(class='form' style=form1Styles id="add_new_user")
+                .form-first
+                    h1(class="form-title") Добавить пользователя
+                    !=inputUserId
+                .form-second
+                    !=buttonAddUserSubmit
+                    !=buttonHideAddUser
+                    if msg1
+                        span.error_message!=msg1
+            form(class='form' style=form2Styles id="delete_user")
+                .form-first
+                    h1(class="form-title") Удалить пользователя
+                    !=inputUserIdDelete
+                    !=listUsers
+                .form-second
+                    !=buttonDeleteUserSubmit
+                    !=buttonHideDeleteUser
+                    if msg2
+                        span.error_message!=msg2
+            span.chats-right-text Выберите чат чтобы отправить сообщение
+            if currectChat
+                .chats-right-block
+                    .chats-right-header
+                        .chats-right-header-left
+                            img.chats-right-header-avatar(src=currectChat.avatar)
+                            span.chats-right-header-name=currectChat.title
+                        .chats-right-header-right.dropdown
+                            <button class="button button-profile-link">
+                                <span> 
+                                    <svg width="3" height="16" viewBox="0 0 3 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="1.5" cy="2" r="1.5" fill="#1E1E1E"></circle>
+                                    <circle cx="1.5" cy="8" r="1.5" fill="#1E1E1E"></circle>
+                                    <circle cx="1.5" cy="14" r="1.5" fill="#1E1E1E"></circle>
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="dropdown-content">
+                                !=buttonAddUserToChat
+                                !=buttonDeleteUserFromChat
+                            </div>
+                    .chats-right-chat
+                    .chats-right-footer
+                        .chats-right-footer-left
+                            !=inputMessage
+                        .chats-right-footer-right
+                            !=buttonSendMessage`;
 
 export default chatsTmpl;

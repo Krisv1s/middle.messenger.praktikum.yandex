@@ -1,4 +1,4 @@
-import render from './utils/renderDOM';
+// import render from './utils/renderDOM';
 
 import Error404 from './pages/error/Error404';
 import Error505 from './pages/error/Error505';
@@ -8,28 +8,20 @@ import Profile from './pages/profile/profile';
 import ProfileEdit from './pages/profile/profile_edit';
 import Chats from './pages/chats/chats';
 
-const sampleError404 = new Error404();
-const sampleError505 = new Error505();
-const sampleSingin = new Singin();
-const sampleSingup = new Singup();
-const sampleProfile = new Profile();
-const sampleProfileEdit = new ProfileEdit();
-const sampleChats = new Chats();
+import Router from './utils/Router';
+import Store from './utils/Store';
 
-const { pathname } = window.document.location;
-
-if (pathname === '/404') {
-  render('.app', sampleError404);
-} else if (pathname === '/505') {
-  render('.app', sampleError505);
-} else if (pathname === '/') {
-  render('.app', sampleSingup);
-} else if (pathname === '/singin') {
-  render('.app', sampleSingin);
-} else if (pathname === '/profile') {
-  render('.app', sampleProfile);
-} else if (pathname === '/edit') {
-  render('.app', sampleProfileEdit);
-} else if (pathname === '/chats') {
-  render('.app', sampleChats);
+export enum StoreEvents {
+  Updated = 'updated',
 }
+
+Store.on(StoreEvents.Updated, () => {});
+
+Router.use('/404', Error404)
+  .use('/505', Error505)
+  .use('/sign-up', Singup)
+  .use('/', Singin)
+  .use('/settings', ProfileEdit)
+  .use('/messenger', Chats)
+  .use('/profile', Profile)
+  .start();

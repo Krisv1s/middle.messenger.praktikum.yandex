@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "npm run build && node server.js",
-    "dev": "parcel src/index.pug",
+    "dev": "parcel src/index.pug --port 3000",
     "build": "parcel build src/index.pug"
   },
   "devDependencies": {

@@ -21,6 +21,8 @@ export default class Button extends Block {
     super(tagName, props);
   }
 
+  public update(): void {}
+
   protected getAttributes(): Record<string, string> {
     const atrList: AttributesTypes = { class: this.props.class };
     if (this.props.type) atrList.type = this.props.type;

@@ -26,6 +26,8 @@ export default class Input extends Block {
     super('input', props);
   }
 
+  public update(): void {}
+
   protected getAttributes(): Record<string, string> {
     const atrList: AttributesTypes = { class: this.props.class || 'input' };
     if (this.props.type) atrList.type = this.props.type;

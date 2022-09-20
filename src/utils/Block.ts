@@ -12,6 +12,7 @@ export default abstract class Block {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: 'flow:render',
   };
 
@@ -51,8 +52,13 @@ export default abstract class Block {
   private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this, this.props));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentDidUnMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+  }
+
+  public deleteElement(): void {
+    this.eventBus.emit(Block.EVENTS.FLOW_CWU);
   }
 
   private _createResources() {
@@ -68,6 +74,17 @@ export default abstract class Block {
   public init() {
     this._createResources();
     this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
+  }
+
+  private _componentDidUnMount() {
+    this.componentDidUnMount();
+  }
+
+  public componentDidUnMount() {
+    const res = this.getContent();
+    if (res !== null) {
+      res.remove();
+    }
   }
 
   private _componentDidMount() {
@@ -146,6 +163,8 @@ export default abstract class Block {
 
   abstract render(): DocumentFragment;
 
+  abstract update(): void;
+
   getContent() {
     return this.element;
   }
@@ -156,7 +175,6 @@ export default abstract class Block {
         if (target[prop as keyof PropsTypes] === value) {
           return true;
         }
-
         // eslint-disable-next-line no-param-reassign
         target[prop as keyof PropsTypes] = value;
         this.eventBus.emit(Block.EVENTS.FLOW_CDU);

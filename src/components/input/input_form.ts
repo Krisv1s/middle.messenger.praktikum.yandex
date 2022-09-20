@@ -18,6 +18,8 @@ export default class InputForm extends Block {
     super('div', props);
   }
 
+  public update(): void {}
+
   protected getAttributes(): Record<string, string> {
     return { class: 'input_block' };
   }
@@ -44,6 +46,7 @@ export default class InputForm extends Block {
     } else {
       this.setProps({ ...this.props, validMsg: '' });
     }
+    return res;
   }
 
   public get value(): string {

@@ -58,6 +58,30 @@
   height: 32px;
   border: transparent;
   background: $search_color;
+  outline: none;
+  &::placeholder {
+    color: $placeholder_color;
+  }
+  &:focus {
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+}
+
+.input-message {
+  outline: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  border-radius: 30px;
+  width: 100%;
+  height: 32px;
+  border: transparent;
+  background: $search_color;
+  padding-left: 10px;
   &::placeholder {
     color: $placeholder_color;
   }
@@ -82,5 +106,12 @@
   margin-top: 7px;
   color: $error_color;
   font-size: 8px;
+  line-height: 8px;
+}
+
+.error_message {
+  margin-top: 7px;
+  color: $error_color;
+  font-size: 15px;
   line-height: 8px;
 }

@@ -11,6 +11,7 @@
   flex-direction: column;
   box-sizing: border-box;
   justify-content: space-between;
+  z-index: 9999;
   &-title {
     text-align: center;
     font-style: normal;

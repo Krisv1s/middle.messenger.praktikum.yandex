@@ -3,6 +3,8 @@ import Block from '../../utils/Block';
 import singinTmpl from './singin.tmpl';
 import Button from '../../components/button/button';
 import InputForm from '../../components/input/input_form';
+import Router from '../../utils/Router';
+import AuthAPI from '../../utils/API/AuthAPI';
 
 export default class Singin extends Block {
   constructor() {
@@ -14,6 +16,8 @@ export default class Singin extends Block {
       class: 'form',
     };
   }
+
+  public update(): void {}
 
   protected getChildren(): Record<string, Block> {
     const inputLogin = new InputForm({
@@ -36,12 +40,34 @@ export default class Singin extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          for (const key of inputs) {
-            key.validate();
-          }
           console.log({
             login: inputLogin.value,
             password: inputPassword.value,
+          });
+          let resValidate = true;
+          for (const key of inputs) {
+            if (!key.validate()) resValidate = false;
+          }
+          if (!resValidate) return;
+
+          AuthAPI.signIn({
+            login: inputLogin.value,
+            password: inputPassword.value,
+          }).then((res2) => {
+            if (res2.currentTarget.status === 200) {
+              AuthAPI.getUserInfo().then((res) => {
+                console.log(res);
+                Router.go('/messenger');
+              });
+            } else if (res2.currentTarget.status >= 500) {
+              this.props.msg = 'Server Error';
+            } else {
+              try {
+                this.props.msg = JSON.parse(res2.currentTarget.response).reason;
+              } catch (err) {
+                this.props.msg = 'Some error';
+              }
+            }
           });
         },
       },
@@ -49,7 +75,12 @@ export default class Singin extends Block {
     const buttonLink = new Button('a', {
       class: 'button button-transparent',
       value: 'Нет аккаунта?',
-      href: '/singup',
+      events: {
+        click: (e) => {
+          e.preventDefault();
+          Router.go('/sign-up');
+        },
+      },
     });
     return {
       inputLogin,
@@ -60,6 +91,6 @@ export default class Singin extends Block {
   }
 
   render(): DocumentFragment {
-    return this.compile(singinTmpl);
+    return this.compile(singinTmpl, { msg: this.props.msg });
   }
 }

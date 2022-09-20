@@ -3,11 +3,15 @@ import Block from '../../utils/Block';
 import singupTmpl from './singup.tmpl';
 import Button from '../../components/button/button';
 import InputForm from '../../components/input/input_form';
+import Router from '../../utils/Router';
+import AuthAPI from '../../utils/API/AuthAPI';
 
 export default class Singup extends Block {
   constructor() {
     super('form');
   }
+
+  public update(): void {}
 
   protected getAttributes(): Record<string, string> {
     return {
@@ -74,9 +78,6 @@ export default class Singup extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          for (const key of inputs) {
-            key.validate();
-          }
           console.log({
             email: inputEmail.value,
             login: inputLogin.value,
@@ -86,13 +87,46 @@ export default class Singup extends Block {
             password: inputPassword.value,
             passwordReplay: inputPasswordReplay.value,
           });
+          let resValidate = true;
+          for (const key of inputs) {
+            if (!key.validate()) resValidate = false;
+          }
+          if (!resValidate) return;
+          AuthAPI.signUp({
+            first_name: inputFirstName.value,
+            second_name: inputSecondName.value,
+            login: inputLogin.value,
+            email: inputEmail.value,
+            password: inputPassword.value,
+            phone: inputPhone.value,
+          }).then((res2) => {
+            if (res2.currentTarget.status === 200) {
+              AuthAPI.getUserInfo().then((res) => {
+                console.log(res);
+                Router.go('/messenger');
+              });
+            } else if (res2.currentTarget.status >= 500) {
+              this.props.msg = 'Server Error';
+            } else {
+              try {
+                this.props.msg = JSON.parse(res2.currentTarget.response).reason;
+              } catch (err) {
+                this.props.msg = 'Some error';
+              }
+            }
+          });
         },
       },
     });
     const buttonLink = new Button('a', {
       class: 'button button-transparent',
       value: 'Войти',
-      href: '/singin',
+      events: {
+        click: (e) => {
+          e.preventDefault();
+          Router.go('/');
+        },
+      },
     });
     return {
       inputEmail,
@@ -108,6 +142,6 @@ export default class Singup extends Block {
   }
 
   render(): DocumentFragment {
-    return this.compile(singupTmpl);
+    return this.compile(singupTmpl, { msg: this.props.msg });
   }
 }

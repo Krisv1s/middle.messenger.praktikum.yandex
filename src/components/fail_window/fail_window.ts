@@ -2,6 +2,7 @@ import Block from '../../utils/Block';
 
 import failWindowTmpl from './fail_window.tmpl';
 import Button from '../button/button';
+import Router from '../../utils/Router';
 
 type FailWindowTypes = {
   code: string;
@@ -13,11 +14,18 @@ export default class FailWindow extends Block {
     super('div', props);
   }
 
+  public update(): void {}
+
   protected getChildren(): Record<string, Block> {
     const button = new Button('a', {
       class: 'button button-transparent',
       value: 'Назад к чатам',
-      href: '/',
+      events: {
+        click: (e) => {
+          e.preventDefault();
+          Router.go('/');
+        },
+      },
     });
     return { button };
   }

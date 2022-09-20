@@ -6,6 +6,8 @@ const singinTmpl = `
 .form-second
     !=buttonSingin
     !=buttonLink
+    if msg
+        span.error_message!=msg
 `;
 
 export default singinTmpl;
