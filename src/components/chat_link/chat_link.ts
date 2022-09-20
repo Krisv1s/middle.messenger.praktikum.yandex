@@ -11,6 +11,11 @@ type ChatLinkTypes = {
   time: string;
   unread_count: number;
   events?: Record<string, (e: Event) => void>;
+  id?: string;
+};
+
+type AttributesTypes = {
+  id: string;
 };
 
 export default class ChatLink extends Block {
@@ -19,6 +24,11 @@ export default class ChatLink extends Block {
   }
 
   update(): void {}
+
+  protected getAttributes(): Record<string, string> {
+    const atrList: AttributesTypes = { id: this.props.id };
+    return atrList;
+  }
 
   protected getChildren(): Record<string, Block> {
     const button = new Button('a', {
@@ -39,12 +49,13 @@ export default class ChatLink extends Block {
   }
 
   public render() {
-    console.log(this.props);
     return this.compile(chatLink, {
       title: this.props.title,
       content: this.props?.last_message?.content || '',
       unread_count: this.props.unread_count,
-      time: `${new Date(this.props.time).getHours()}:${new Date(this.props.time).getMinutes()}`,
+      time: this.props.time
+        ? `${new Date(this.props.time).getHours()}:${new Date(this.props.time).getMinutes()}`
+        : '',
     });
   }
 }

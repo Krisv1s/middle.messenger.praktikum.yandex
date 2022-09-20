@@ -39,7 +39,6 @@ export class HTTPTransport {
     this.request(url, { ...options, method: MethodTypes.DELETE });
 
   public request = (url: string, options: IOptions, queryData: Record<string, unknown> = {}) => {
-    console.log(options);
     const { headers = {}, method = MethodTypes.GET, body, credentials, data } = options;
     return new Promise((resolve, reject) => {
       const _headers = new Headers();

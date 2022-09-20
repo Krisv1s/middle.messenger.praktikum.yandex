@@ -108,7 +108,11 @@ export default class Singup extends Block {
             } else if (res2.currentTarget.status >= 500) {
               this.props.msg = 'Server Error';
             } else {
-              this.props.msg = JSON.parse(res2.currentTarget.response).reason;
+              try {
+                this.props.msg = JSON.parse(res2.currentTarget.response).reason;
+              } catch (err) {
+                this.props.msg = 'Some error';
+              }
             }
           });
         },

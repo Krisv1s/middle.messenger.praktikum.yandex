@@ -9,10 +9,12 @@ type ChatLinkTypes = {
   time: string;
   isMyMessage: boolean;
   events?: Record<string, (e: Event) => void>;
+  id?: string;
 };
 
 type AttributesTypes = {
   class: string;
+  id: string;
 };
 
 export default class ChatMessage extends Block {
@@ -41,6 +43,7 @@ export default class ChatMessage extends Block {
       class: this.props.isMyMessage
         ? 'chats-right-chat-msg chats-right-chat-msg-my'
         : 'chats-right-chat-msg',
+      id: this.props.id,
     };
     return atrList;
   }

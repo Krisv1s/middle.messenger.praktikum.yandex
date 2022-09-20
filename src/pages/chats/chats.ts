@@ -13,12 +13,27 @@ import Store from '../../utils/Store';
 import chatsTmpl from './chats.tmpl';
 
 export default class Chats extends Block {
+  show: string;
+
+  hide: string;
+
   constructor() {
     super('div');
+    this.show = 'display:flex;position:fixed;';
+    this.hide = 'display:none;position:fixed;';
+    this.props.msg1 = '';
+    this.props.msg2 = '';
+    this.props.form1Styles = this.hide;
+    this.props.form2Styles = this.hide;
     ChatAPI.getChats();
     AuthAPI.getUserInfo().then(() => {
       if (!Store.getState()?.user?.id) Router.go('/');
     });
+  }
+
+  private changeProps(prop: string, value: string) {
+    this.props[prop] = value;
+    this.update();
   }
 
   protected getChildren(): Record<string, Block> {
@@ -94,9 +109,7 @@ export default class Chats extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          document
-            .getElementById('add_new_user')
-            ?.setAttribute('style', 'display:flex;position:fixed;');
+          this.changeProps('form1Styles', this.show);
         },
       },
     });
@@ -111,9 +124,7 @@ export default class Chats extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          document
-            .getElementById('delete_user')
-            ?.setAttribute('style', 'display:flex;position:fixed;');
+          this.changeProps('form2Styles', this.show);
         },
       },
     });
@@ -143,7 +154,7 @@ export default class Chats extends Block {
 
     const inputUserId = new InputForm({
       type: 'text',
-      placeholder: 'ID пользователя',
+      placeholder: 'Логин',
       name: 'message',
       id: 'input6',
     });
@@ -155,10 +166,25 @@ export default class Chats extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-
-          ChatAPI.addUser({
-            users: [+inputUserId.value],
-            chatId: Store.getState()?.currectChat?.id || 0,
+          ChatAPI.getUser({
+            login: inputUserId.value,
+          }).then((res) => {
+            try {
+              const response = JSON.parse(res.currentTarget.response);
+              if (response?.[0]) {
+                ChatAPI.addUser({
+                  users: [response?.[0]?.id],
+                  chatId: Store.getState()?.currectChat?.id || 0,
+                });
+                this.changeProps('msg1', '');
+                this.changeProps('form1Styles', this.hide);
+                ChatAPI.getChatUserList({ id: Store.getState()?.currectChat?.id || 0 });
+              } else {
+                this.changeProps('msg1', 'Not found');
+              }
+            } catch (err) {
+              console.log(err);
+            }
           });
         },
       },
@@ -169,16 +195,14 @@ export default class Chats extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          document
-            .getElementById('add_new_user')
-            ?.setAttribute('style', 'display:none;position:fixed;');
+          this.changeProps('form1Styles', this.hide);
         },
       },
     });
 
     const inputUserIdDelete = new InputForm({
       type: 'text',
-      placeholder: 'ID пользователя',
+      placeholder: 'Логин',
       name: 'message',
       id: 'input6',
     });
@@ -190,10 +214,32 @@ export default class Chats extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-
-          ChatAPI.deleteUser({
-            users: [+inputUserId.value],
-            chatId: Store.getState()?.currectChat?.id || 0,
+          if (
+            (Store.getState()?.currectUsers || '').split(', ').indexOf(inputUserIdDelete.value) ===
+            -1
+          ) {
+            this.changeProps('msg2', 'Not found');
+            return;
+          }
+          ChatAPI.getUser({
+            login: inputUserIdDelete.value,
+          }).then((res) => {
+            try {
+              const response = JSON.parse(res.currentTarget.response);
+              if (response?.[0]) {
+                ChatAPI.deleteUser({
+                  users: [response?.[0]?.id],
+                  chatId: Store.getState()?.currectChat?.id || 0,
+                });
+                this.changeProps('msg2', '');
+                this.changeProps('form2Styles', this.hide);
+                ChatAPI.getChatUserList({ id: Store.getState()?.currectChat?.id || 0 });
+              } else {
+                this.changeProps('msg2', 'Not found');
+              }
+            } catch (err) {
+              console.log(err);
+            }
           });
         },
       },
@@ -204,9 +250,7 @@ export default class Chats extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          document
-            .getElementById('delete_user')
-            ?.setAttribute('style', 'display:none;position:fixed;');
+          this.changeProps('form2Styles', this.hide);
         },
       },
     });
@@ -234,24 +278,28 @@ export default class Chats extends Block {
     const curStore = Store.getState();
     const chatLinkList = [];
     for (const key of curStore.chats || []) {
-      chatLinkList.push(
-        new ChatLink({
-          title: key.title,
-          last_message: key.last_message,
-          time: key.last_message.time,
-          unread_count: key.unread_count,
-          events: {
-            click: (e) => {
-              e.preventDefault();
-              console.log(key);
-              if (!key.avatar) key.avatar = 'https://fakeimg.pl/34x34/?text=png';
-              else key.avatar = `https://ya-praktikum.tech/api/v2/resources${key.avatar}`;
-              Store.setState('currectChat', key);
-              ChatAPI.getChatToken(key.id, Store.getState()?.user?.id);
+      if (!document.getElementById(`chat${key.id}`)) {
+        chatLinkList.push(
+          new ChatLink({
+            title: key.title,
+            last_message: key.last_message,
+            time: key.last_message?.time,
+            unread_count: key.unread_count,
+            id: `chat${key.id}`,
+            events: {
+              click: (e) => {
+                e.preventDefault();
+                console.log(key);
+                if (!key.avatar) key.avatar = 'https://fakeimg.pl/34x34/?text=png';
+                else key.avatar = `https://ya-praktikum.tech/api/v2/resources${key.avatar}`;
+                Store.setState('currectChat', key);
+                ChatAPI.getChatUserList({ id: key?.id });
+                ChatAPI.getChatToken(key.id, Store.getState()?.user?.id);
+              },
             },
-          },
-        })
-      );
+          })
+        );
+      }
     }
     for (const key of chatLinkList) {
       renderDOM('.chats-left-list', key);
@@ -259,13 +307,16 @@ export default class Chats extends Block {
     const messageList = [];
     for (const key of curStore?.messages || []) {
       console.log(key);
-      messageList.push(
-        new ChatMessage({
-          message: key.content,
-          time: key.time,
-          isMyMessage: key.user_id === curStore?.user?.id,
-        })
-      );
+      if (!document.getElementById(`msg${key.id}`)) {
+        messageList.push(
+          new ChatMessage({
+            message: key.content,
+            time: key.time,
+            id: `msg${key.id}`,
+            isMyMessage: key.user_id === curStore?.user?.id,
+          })
+        );
+      }
     }
     for (const key of messageList) {
       renderDOM('.chats-right-chat', key);
@@ -273,6 +324,13 @@ export default class Chats extends Block {
   }
 
   render(): DocumentFragment {
-    return this.compile(chatsTmpl, { currectChat: Store.getState()?.currectChat });
+    return this.compile(chatsTmpl, {
+      currectChat: Store.getState()?.currectChat,
+      msg1: this.props.msg1,
+      msg2: this.props.msg2,
+      form1Styles: this.props.form1Styles,
+      form2Styles: this.props.form2Styles,
+      listUsers: Store.getState()?.currectUsers,
+    });
   }
 }

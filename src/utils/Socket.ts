@@ -21,7 +21,7 @@ class Socket {
         const response = JSON.parse(res.data);
         if (Array.isArray(response)) {
           Store.setState('messages', response.reverse());
-        } else if (response.content) {
+        } else if (response.type === 'message') {
           const curStore = Store.getState().messages;
           curStore.push(response);
           Store.setState('messages', curStore);

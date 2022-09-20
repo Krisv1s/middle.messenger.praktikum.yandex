@@ -28,9 +28,12 @@
     font-size: 13px;
     line-height: 13px;
     width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     width: 210px;
+    &:hover {
+      background: #e4edfd;
+    }
     span {
       display: flex;
       align-items: center;
@@ -89,5 +92,9 @@
     border-radius: 50%;
     width: 28px;
     height: 28px;
+    span {
+      display: flex;
+      justify-content: center;
+    }
   }
 }

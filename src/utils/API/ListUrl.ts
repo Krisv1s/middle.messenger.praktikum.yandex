@@ -10,8 +10,10 @@ const ListUrl = {
   chats: '/chats',
   createChat: '/chats',
   chatToken: '/chats/token/',
+  getUser: '/user/search',
   addUser: '/chats/users',
   deleteUser: '/chats/users',
+  users: '/users',
 };
 
 export default ListUrl;

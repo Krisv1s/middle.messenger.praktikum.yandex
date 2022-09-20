@@ -17,7 +17,11 @@ class ChatAPI extends CoreAPI {
       mode: 'cors',
     };
     return this.http.get(this.url + ListUrl.chats, options).then((res) => {
-      Store.setState('chats', JSON.parse(res.currentTarget.response));
+      try {
+        Store.setState('chats', JSON.parse(res.currentTarget.response));
+      } catch (err) {
+        console.log(err);
+      }
     });
   }
 
@@ -37,9 +41,22 @@ class ChatAPI extends CoreAPI {
       body: {},
     };
     return this.http.post(this.url + ListUrl.chatToken + data, options).then((res) => {
-      Socket.open(id, data, JSON.parse(res.currentTarget.response).token);
-      Socket.message();
+      try {
+        Socket.open(id, data, JSON.parse(res.currentTarget.response).token);
+        Socket.message();
+      } catch (err) {
+        console.log(err);
+      }
     });
+  }
+
+  public getUser(data: Record<string, any>) {
+    const options: Options = {
+      method: MethodTypes.POST,
+      credentials: true,
+      body: data,
+    };
+    return this.http.post(this.url + ListUrl.getUser, options);
   }
 
   public addUser(data: Record<string, any>) {
@@ -57,11 +74,33 @@ class ChatAPI extends CoreAPI {
 
   public deleteUser(data: Record<string, any>) {
     const options: Options = {
-      method: MethodTypes.PUT,
+      method: MethodTypes.DELETE,
       credentials: true,
       body: data,
     };
     return this.http.delete(this.url + ListUrl.deleteUser, options);
+  }
+
+  public getChatUserList(data: Record<string, any>) {
+    const options: Options = {
+      method: MethodTypes.GET,
+      credentials: true,
+    };
+    return this.http
+      .get(`${this.url + ListUrl.chats}/${data.id}${ListUrl.users}`, options)
+      .then((res) => {
+        try {
+          const response = JSON.parse(res.currentTarget.response);
+          let str = response?.[0]?.login || '';
+          for (let i = 1; i < response.length; i += 1) {
+            const element = response[i];
+            str += `, ${element?.login}`;
+          }
+          Store.setState('currectUsers', str);
+        } catch (err) {
+          console.log(err);
+        }
+      });
   }
 }
 

@@ -107,8 +107,6 @@ export default abstract class Block {
       this.props = this._makePropsProxy({ ...this.props, newProps });
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
-    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    this._render();
   }
 
   public componentDidUpdate(oldProps: PropsTypes, newProps: PropsTypes) {
@@ -177,7 +175,6 @@ export default abstract class Block {
         if (target[prop as keyof PropsTypes] === value) {
           return true;
         }
-
         // eslint-disable-next-line no-param-reassign
         target[prop as keyof PropsTypes] = value;
         this.eventBus.emit(Block.EVENTS.FLOW_CDU);

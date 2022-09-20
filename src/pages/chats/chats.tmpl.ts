@@ -13,8 +13,6 @@ const chatsTmpl = `
                             span.chat-name New chat
                         .chat-block-right
                             !=buttonNewChat
-                !=chatFirst
-                !=chatSecond
         .chats-right
             form(class='form' style="position: fixed;display: none;" id="create_chat")
                 .form-first
@@ -23,20 +21,25 @@ const chatsTmpl = `
                 .form-second
                     !=buttonCreateChat
                     !=buttonHide
-            form(class='form' style="position: fixed;display: none;" id="add_new_user")
+            form(class='form' style=form1Styles id="add_new_user")
                 .form-first
                     h1(class="form-title") Добавить пользователя
                     !=inputUserId
                 .form-second
                     !=buttonAddUserSubmit
                     !=buttonHideAddUser
-            form(class='form' style="position: fixed;display: none;" id="delete_user")
+                    if msg1
+                        span.error_message!=msg1
+            form(class='form' style=form2Styles id="delete_user")
                 .form-first
                     h1(class="form-title") Удалить пользователя
                     !=inputUserIdDelete
+                    !=listUsers
                 .form-second
                     !=buttonDeleteUserSubmit
                     !=buttonHideDeleteUser
+                    if msg2
+                        span.error_message!=msg2
             span.chats-right-text Выберите чат чтобы отправить сообщение
             if currectChat
                 .chats-right-block
