@@ -1,14 +1,30 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
+import Router from '../../core/Router';
+import Store from '../../core/Store';
 
-import singinTmpl from './singin.tmpl';
-import Button from '../../components/button/button';
-import InputForm from '../../components/input/input_form';
-import Router from '../../utils/Router';
 import AuthAPI from '../../utils/API/AuthAPI';
 
+import Button from '../../components/button/button';
+import InputForm from '../../components/input/input_form';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const singinTmpl = require('./singin.tmpl.pug');
+
+type responseType = {
+  currentTarget: Record<string, any>;
+};
+
 export default class Singin extends Block {
+  userInfo = Store.getState()?.user;
+
   constructor() {
     super('form');
+    if (!this.userInfo?.id) {
+      AuthAPI.getUserInfo().then(() => {
+        this.eventBus.emit(Block.EVENTS.FLOW_CDU, Store.getState());
+        if (Store.getState()?.user?.id) Router.go('/messenger');
+      });
+    }
   }
 
   protected getAttributes(): Record<string, string> {
@@ -53,7 +69,7 @@ export default class Singin extends Block {
           AuthAPI.signIn({
             login: inputLogin.value,
             password: inputPassword.value,
-          }).then((res2) => {
+          }).then((res2: responseType) => {
             if (res2.currentTarget.status === 200) {
               AuthAPI.getUserInfo().then((res) => {
                 console.log(res);

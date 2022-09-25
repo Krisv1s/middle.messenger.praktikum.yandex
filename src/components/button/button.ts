@@ -1,6 +1,7 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 
-import buttonTmpl from './button.tmpl';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const buttonTmpl = require('./button.tmpl.pug');
 
 type ButtonTypes = {
   class: string;

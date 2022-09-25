@@ -1,8 +1,10 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
+import Router from '../../core/Router';
 
 import Button from '../button/button';
-import Router from '../../utils/Router';
-import chatLink from './chat_link.tmpl';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const chatLink = require('./chat_link.tmpl.pug');
 
 type ChatLinkTypes = {
   avatar?: string;

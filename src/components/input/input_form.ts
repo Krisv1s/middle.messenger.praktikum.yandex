@@ -1,9 +1,11 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 
-import inputFormTmpl from './input_form.tmpl';
 import Input from './input';
 
 import isValid from '../../utils/isValid';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const inputFormTmpl = require('./input_form.tmpl.pug');
 
 type InputFormTypes = {
   type: string;

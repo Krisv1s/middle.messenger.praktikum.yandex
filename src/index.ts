@@ -1,4 +1,5 @@
-// import render from './utils/renderDOM';
+import Router from './core/Router';
+import Store from './core/Store';
 
 import Error404 from './pages/error/Error404';
 import Error505 from './pages/error/Error505';
@@ -8,8 +9,10 @@ import Profile from './pages/profile/profile';
 import ProfileEdit from './pages/profile/profile_edit';
 import Chats from './pages/chats/chats';
 
-import Router from './utils/Router';
-import Store from './utils/Store';
+import './styles/global_styles.scss';
+import './styles/profile_pattern.scss';
+import './styles/profile.scss';
+import './styles/chat.scss';
 
 export enum StoreEvents {
   Updated = 'updated',

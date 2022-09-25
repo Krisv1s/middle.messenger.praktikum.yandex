@@ -3,23 +3,25 @@ type Indexed<T = any> = {
 };
 
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
-  for (let p in rhs) {
-    if (!rhs.hasOwnProperty(p)) {
+  const lhsLink = lhs;
+  const rhsLink = rhs;
+  for (const p in rhsLink) {
+    if (!Object.prototype.hasOwnProperty.call(rhsLink, p)) {
       continue;
     }
 
     try {
-      if (rhs[p].constructor === Object) {
-        rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
+      if (rhsLink[p].constructor === Object) {
+        rhsLink[p] = merge(lhsLink[p] as Indexed, rhsLink[p] as Indexed);
       } else {
-        lhs[p] = rhs[p];
+        lhsLink[p] = rhsLink[p];
       }
     } catch (e) {
-      lhs[p] = rhs[p];
+      lhsLink[p] = rhsLink[p];
     }
   }
 
-  return lhs;
+  return lhsLink;
 }
 
 function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {

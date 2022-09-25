@@ -1,4 +1,4 @@
-@import '../../styles/_const';
+@import "../../styles/_const";
 
 .input_block {
   position: relative;
@@ -16,10 +16,11 @@
     margin-bottom: 8px;
     margin-left: -100%;
   }
+
   .input {
     box-sizing: border-box;
     position: relative;
-    font-family: 'Inter';
+    font-family: Inter;
     width: 100%;
     border: none;
     border-bottom: 1px solid $primary_color;
@@ -35,6 +36,7 @@
         bottom: 95%;
       }
     }
+
     &:not(:placeholder-shown) + .label {
       font-size: 9px;
       bottom: 95%;
@@ -47,7 +49,7 @@
 }
 
 .input-search {
-  font-family: 'Inter';
+  font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -59,9 +61,11 @@
   border: transparent;
   background: $search_color;
   outline: none;
+
   &::placeholder {
     color: $placeholder_color;
   }
+
   &:focus {
     &::placeholder {
       opacity: 0;
@@ -71,7 +75,7 @@
 
 .input-message {
   outline: none;
-  font-family: 'Inter';
+  font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -82,6 +86,7 @@
   border: transparent;
   background: $search_color;
   padding-left: 10px;
+
   &::placeholder {
     color: $placeholder_color;
   }
@@ -91,7 +96,7 @@
   text-align: right;
   box-sizing: border-box;
   position: relative;
-  font-family: 'Inter';
+  font-family: Inter;
   width: 100%;
   border: none;
   outline: 0;

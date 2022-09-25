@@ -1,14 +1,31 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
+import Router from '../../core/Router';
+import Store from '../../core/Store';
 
-import singupTmpl from './singup.tmpl';
-import Button from '../../components/button/button';
-import InputForm from '../../components/input/input_form';
-import Router from '../../utils/Router';
 import AuthAPI from '../../utils/API/AuthAPI';
 
+import Button from '../../components/button/button';
+import InputForm from '../../components/input/input_form';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const singupTmpl = require('./singup.tmpl.pug');
+
+type responseType = {
+  currentTarget: Record<string, any>;
+};
+
 export default class Singup extends Block {
+  userInfo = Store.getState()?.user;
+
   constructor() {
     super('form');
+
+    if (!this.userInfo?.id) {
+      AuthAPI.getUserInfo().then(() => {
+        this.eventBus.emit(Block.EVENTS.FLOW_CDU, Store.getState());
+        if (Store.getState()?.user?.id) Router.go('/messenger');
+      });
+    }
   }
 
   public update(): void {}
@@ -99,7 +116,7 @@ export default class Singup extends Block {
             email: inputEmail.value,
             password: inputPassword.value,
             phone: inputPhone.value,
-          }).then((res2) => {
+          }).then((res2: responseType) => {
             if (res2.currentTarget.status === 200) {
               AuthAPI.getUserInfo().then((res) => {
                 console.log(res);

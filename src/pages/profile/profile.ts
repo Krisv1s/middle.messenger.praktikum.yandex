@@ -1,13 +1,15 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
+import Router from '../../core/Router';
+import Store from '../../core/Store';
 
-import profileTmpl from './profile.tmpl';
-import Button from '../../components/button/button';
-import ProfileUserLine from './profile_user_line';
-import Router from '../../utils/Router';
-import Store from '../../utils/Store';
 import AuthAPI from '../../utils/API/AuthAPI';
-import InputForm from '../../components/input/input_form';
 import UserAPI from '../../utils/API/UserAPI';
+
+import Button from '../../components/button/button';
+import InputForm from '../../components/input/input_form';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const profileTmpl = require('./profile.tmpl.pug');
 
 export default class Profile extends Block {
   userInfo = Store.getState()?.user;
@@ -24,34 +26,6 @@ export default class Profile extends Block {
   public update(): void {}
 
   protected getChildren(): Record<string, Block> {
-    const emailLine = new ProfileUserLine('div', {
-      name: 'Почта',
-      value: Store.getState()?.user?.email || '',
-    });
-    const loginLine = new ProfileUserLine('div', {
-      name: 'Логин',
-      value: Store.getState()?.user?.login || '',
-    });
-    const firstNameLine = new ProfileUserLine('div', {
-      name: 'Имя',
-      value: Store.getState()?.user?.first_name || '',
-    });
-    const firstNameLine2 = new ProfileUserLine('div', {
-      name: 'Имя',
-      value: Store.getState()?.user?.first_name || '',
-    });
-    const secondNameLine = new ProfileUserLine('div', {
-      name: 'Фамилия',
-      value: Store.getState()?.user?.second_name || '',
-    });
-    const displayNameLine = new ProfileUserLine('div', {
-      name: 'Фамилия',
-      value: Store.getState()?.user?.display_name || '',
-    });
-    const phoneLine = new ProfileUserLine('div', {
-      name: 'Фамилия',
-      value: Store.getState()?.user?.phone || '',
-    });
     const buttonChangeInfo = new Button('a', {
       class: 'button button-profile',
       value: 'Изменить данные',
@@ -131,7 +105,7 @@ export default class Profile extends Block {
         },
       },
     });
-    const buttonHide = new Button('a', {
+    const buttonHide = new Button('button', {
       class: 'button button-transparent',
       value: 'Закрыть',
       events: {
@@ -165,7 +139,7 @@ export default class Profile extends Block {
         },
       },
     });
-    const buttonHideAvatar = new Button('a', {
+    const buttonHideAvatar = new Button('button', {
       class: 'button button-transparent',
       value: 'Закрыть',
       events: {
@@ -177,13 +151,13 @@ export default class Profile extends Block {
         },
       },
     });
-    const buttonChangeAvatar = new Button('a', {
+    const buttonChangeAvatar = new Button('button', {
       class: 'button',
-      value: `<img class="profile-avatar" src=${
+      value: `<div class="profile-avatar"><img class="profile-avatar-img" src=${
         Store.getState()?.user?.avatar
           ? `https://ya-praktikum.tech/api/v2/resources${Store.getState().user.avatar}`
           : 'https://fakeimg.pl/130x130/?text=png'
-      }>`,
+      }><span class="profile-avatar-text">Поменять<br />аватар</span></div>`,
       events: {
         click: (e) => {
           e.preventDefault();
@@ -194,13 +168,6 @@ export default class Profile extends Block {
       },
     });
     return {
-      emailLine,
-      loginLine,
-      firstNameLine,
-      firstNameLine2,
-      secondNameLine,
-      displayNameLine,
-      phoneLine,
       buttonChangeInfo,
       buttonChangePassword,
       buttonExit,
@@ -218,6 +185,14 @@ export default class Profile extends Block {
   }
 
   render(): DocumentFragment {
-    return this.compile(profileTmpl);
+    return this.compile(profileTmpl, {
+      emailLine: Store.getState()?.user?.email || '',
+      loginLine: Store.getState()?.user?.login || '',
+      firstNameLine: Store.getState()?.user?.first_name || '',
+      firstNameLine2: Store.getState()?.user?.first_name || '',
+      secondNameLine: Store.getState()?.user?.second_name || '',
+      displayNameLine: Store.getState()?.user?.display_name || '',
+      phoneLine: Store.getState()?.user?.phone || '',
+    });
   }
 }

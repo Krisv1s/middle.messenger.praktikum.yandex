@@ -1,9 +1,9 @@
-@import './fonts.scss';
-@import './_const.scss';
-@import './components_style';
+@import "./fonts";
+@import "./_const";
+@import "./components_style";
 
 html {
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
   background-color: $bg_color;
   height: 100%;
   width: 100%;

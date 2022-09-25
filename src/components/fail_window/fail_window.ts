@@ -1,8 +1,10 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
+import Router from '../../core/Router';
 
-import failWindowTmpl from './fail_window.tmpl';
 import Button from '../button/button';
-import Router from '../../utils/Router';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const failWindowTmpl = require('./fail_window.tmpl.pug');
 
 type FailWindowTypes = {
   code: string;

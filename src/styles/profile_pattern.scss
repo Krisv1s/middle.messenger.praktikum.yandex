@@ -1,4 +1,4 @@
-@import './_const.scss';
+@import "./_const";
 
 .profile-block {
   &-left {
@@ -14,6 +14,7 @@
     align-items: center;
     border-right: 1px solid $line_color;
   }
+
   &-right {
     display: flex;
     width: 510px;

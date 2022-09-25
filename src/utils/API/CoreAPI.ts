@@ -1,4 +1,5 @@
-import { HTTPTransport } from '../HTTPTransport';
+import { HTTPTransport } from '../../core/HTTPTransport';
+
 import ListUrl from './ListUrl';
 
 export default abstract class CoreAPI {

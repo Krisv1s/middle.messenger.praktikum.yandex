@@ -1,0 +1,35 @@
+.profile-block
+    .profile-block-left
+        !=buttonGoBack
+    .profile-block-right
+        .profile
+            img.profile-avatar-img(src=userAvatar)
+            h1.profile-name!=firstNameLine
+            .profile-info
+                -
+                    const profileINfo = [{
+                        "name": "Почта",
+                        "value": inputEmail,
+                    }, {
+                        "name": "Логин",
+                        "value": inputLogin,
+                    }, {
+                        "name": "Имя",
+                        "value": inputFirstName,
+                    }, {
+                        "name": "Фамилия",
+                        "value": inputSecondName,
+                    }, {
+                        "name": "Имя в чате",
+                        "value": inputChatName,
+                    }, {
+                        "name": "Телефон",
+                        "value": inputPhone,
+                    }];
+                each val in profileINfo
+                    .profile-info-block
+                        .profile-info-block-name= val.name
+                        .profile-info-block-value!= val.value
+            .profile-buttons
+                .profile-buttons-block
+                    !=buttonSave

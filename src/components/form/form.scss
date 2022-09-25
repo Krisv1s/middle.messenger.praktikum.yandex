@@ -1,17 +1,18 @@
-@import '../../styles/_const';
+@import "../../styles/_const";
 
 .form {
   width: 340px;
   min-height: 450px;
   background: $bg_color;
   border-radius: 12px;
-  box-shadow: 0 0 6px 0 rgb(0 0 0 /0.14);
+  box-shadow: 0 0 6px 0 rgb(0 0 0 /14%);
   padding: 30px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   justify-content: space-between;
   z-index: 9999;
+
   &-title {
     text-align: center;
     font-style: normal;
