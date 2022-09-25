@@ -1,6 +1,6 @@
 # Чат-мессенджер
 
-[PL №3](https://github.com/Krisv1s/middle.messenger.praktikum.yandex/pull/3)
+[PL №4](https://github.com/Krisv1s/middle.messenger.praktikum.yandex/pull/5)
 ## Используется
 
 1. Собирает код [Parcel](https://ru.parceljs.org/)
