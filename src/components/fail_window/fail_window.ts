@@ -3,7 +3,6 @@ import Router from '../../core/Router';
 
 import Button from '../button/button';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const failWindowTmpl = require('./fail_window.tmpl.pug');
 
 type FailWindowTypes = {

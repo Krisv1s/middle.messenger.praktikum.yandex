@@ -1,6 +1,5 @@
 import Block from '../../core/Block';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const inputTmpl = require('./input.tmpl.pug');
 
 type InputTypes = {
@@ -11,6 +10,7 @@ type InputTypes = {
   name?: string;
   value?: string;
   events?: Record<string, (e: Event) => void>;
+  autocomplete?: string;
 };
 
 type AttributesTypes = {
@@ -20,6 +20,7 @@ type AttributesTypes = {
   placeholder?: string;
   value?: string;
   name?: string;
+  autocomplete?: string;
 };
 
 export default class Input extends Block {
@@ -36,6 +37,7 @@ export default class Input extends Block {
     if (this.props.placeholder) atrList.placeholder = this.props.placeholder;
     if (this.props.name) atrList.name = this.props.name;
     if (this.props.value) atrList.value = this.props.value;
+    if (this.props.autocomplete) atrList.autocomplete = this.props.autocomplete;
     return atrList;
   }
 

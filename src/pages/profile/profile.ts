@@ -8,7 +8,8 @@ import UserAPI from '../../utils/API/UserAPI';
 import Button from '../../components/button/button';
 import InputForm from '../../components/input/input_form';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+const imgUser = require('@static/images/default_user.png');
+
 const profileTmpl = require('./profile.tmpl.pug');
 
 export default class Profile extends Block {
@@ -60,9 +61,7 @@ export default class Profile extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          document
-            .getElementById('password_edit')
-            ?.setAttribute('style', 'display:flex;position:fixed;');
+          Router.go('/password');
         },
       },
     });
@@ -90,33 +89,7 @@ export default class Profile extends Block {
         },
       },
     });
-    const buttonSubmit = new Button('button', {
-      class: 'button-primary',
-      value: 'Сменить пароль',
-      type: 'submit',
-      events: {
-        click: (e) => {
-          e.preventDefault();
 
-          UserAPI.changePassword({
-            oldPassword: inputPasswordCurrect.value,
-            newPassword: inputPassword.value,
-          });
-        },
-      },
-    });
-    const buttonHide = new Button('button', {
-      class: 'button button-transparent',
-      value: 'Закрыть',
-      events: {
-        click: (e) => {
-          e.preventDefault();
-          document
-            .getElementById('password_edit')
-            ?.setAttribute('style', 'display:none;position:fixed;');
-        },
-      },
-    });
     const inputFile = new InputForm({
       type: 'file',
       placeholder: 'Аватарка',
@@ -156,7 +129,7 @@ export default class Profile extends Block {
       value: `<div class="profile-avatar"><img class="profile-avatar-img" src=${
         Store.getState()?.user?.avatar
           ? `https://ya-praktikum.tech/api/v2/resources${Store.getState().user.avatar}`
-          : 'https://fakeimg.pl/130x130/?text=png'
+          : imgUser.default
       }><span class="profile-avatar-text">Поменять<br />аватар</span></div>`,
       events: {
         click: (e) => {
@@ -174,8 +147,6 @@ export default class Profile extends Block {
       inputPasswordCurrect,
       inputPassword,
       inputPasswordReplay,
-      buttonSubmit,
-      buttonHide,
       inputFile,
       buttonSubmitAvatar,
       buttonHideAvatar,

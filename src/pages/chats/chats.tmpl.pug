@@ -1,28 +1,26 @@
 .chats
     .chats-left
-        .chats-left-button
-            !=buttonProfile
+        .chats-left-header
+            img.chats-left-header-avatar(src=currectProfile.avatar)
+            span.chats-left-header-name
+                !=currectProfile.name
+            .chats-left-button
+                !=buttonProfile
         .chats-left-input
-            input(class="input-search" placeholder="Поиск")
+            !=inputSearch
+            !=buttonNewChat
         ul.chats-left-list
-            li.chat
-                img.chat-img(alt="")
-                .chat-block
-                    .chat-block-left
-                        span.chat-name New chat
-                    .chat-block-right
-                        !=buttonNewChat
     .chats-right
         form(class='form' style="position: fixed;display: none;" id="create_chat")
             .form-first
-                h1(class="form-title") Новый чатик
+                p(class="form-title") Новый чатик
                 !=inputNameChat
             .form-second
                 !=buttonCreateChat
                 !=buttonHide
         form(class='form' style=form1Styles id="add_new_user")
             .form-first
-                h1(class="form-title") Добавить пользователя
+                p(class="form-title") Добавить пользователя
                 !=inputUserId
             .form-second
                 !=buttonAddUserSubmit
@@ -31,7 +29,7 @@
                     span.error_message!=msg1
         form(class='form' style=form2Styles id="delete_user")
             .form-first
-                h1(class="form-title") Удалить пользователя
+                p(class="form-title") Удалить пользователя
                 !=inputUserIdDelete
                 !=listUsers
             .form-second

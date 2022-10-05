@@ -1,4 +1,4 @@
-@import "./_const";
+@import './_const';
 
 @mixin FontSettingsInfoBlock() {
   font-family: Inter;
@@ -85,7 +85,7 @@
 
       &-value {
         @include FontSettingsInfoBlock;
-
+        height: 10px;
         color: $placeholder_color;
       }
     }

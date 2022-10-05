@@ -1,4 +1,4 @@
-@import "./_const";
+@import './_const';
 
 .chats {
   display: flex;
@@ -15,15 +15,37 @@
     overflow: auto;
     max-height: 100vh;
 
+    &-header {
+      display: flex;
+      margin-top: 10px;
+      margin-left: 20px;
+      &-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+      }
+      &-name {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 13px;
+        margin-left: 10px;
+      }
+    }
+
     &-button {
-      margin-top: 21px;
-      align-self: flex-end;
+      display: flex;
+      align-self: center;
     }
 
     &-input {
       display: flex;
       justify-content: center;
-      margin-top: 23px;
+      margin-top: 10px;
       padding-bottom: 14px;
       border-bottom: 1px solid $line_color;
     }
@@ -112,11 +134,16 @@
         padding: 11px;
         word-wrap: break-word;
         margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
 
         &-my {
           background: #e4edfd;
           align-self: flex-end;
           border-radius: 15px 15px 0;
+          .chats-right-chat-msg-time {
+            color: $primary_color;
+          }
         }
 
         &-text {
@@ -126,6 +153,17 @@
           font-size: 12px;
           line-height: 15px;
           color: $dark_color;
+        }
+
+        &-time {
+          text-align: right;
+          margin-left: 10px;
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 9px;
+          line-height: 9px;
+          color: $placeholder_color;
         }
       }
     }
