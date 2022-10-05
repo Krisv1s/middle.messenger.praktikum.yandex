@@ -140,6 +140,7 @@ export default class Profile extends Block {
         },
       },
     });
+
     return {
       buttonChangeInfo,
       buttonChangePassword,
