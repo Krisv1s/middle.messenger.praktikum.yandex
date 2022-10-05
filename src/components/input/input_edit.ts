@@ -1,9 +1,11 @@
-import Block from '../../utils/Block';
-
-import inputEditTmpl from './input_edit.tmpl';
-import Input from './input';
+import Block from '../../core/Block';
 
 import isValid from '../../utils/isValid';
+
+import Input from './input';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const inputEditTmpl = require('./input_edit.tmpl.pug');
 
 type InputFormTypes = {
   type?: string;

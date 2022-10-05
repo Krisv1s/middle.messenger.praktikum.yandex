@@ -1,13 +1,15 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
+import Router from '../../core/Router';
+import Store from '../../core/Store';
 
-import profileEditTmpl from './profile_edit.tmpl';
+import AuthAPI from '../../utils/API/AuthAPI';
+import UserAPI from '../../utils/API/UserAPI';
+
 import Button from '../../components/button/button';
 import InputEdit from '../../components/input/input_edit';
-import Store from '../../utils/Store';
-import AuthAPI from '../../utils/API/AuthAPI';
-import Router from '../../utils/Router';
-import UserAPI from '../../utils/API/UserAPI';
-import ProfileUserLine from './profile_user_line';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const profileEditTmpl = require('./profile_edit.tmpl.pug');
 
 export default class ProfileEdit extends Block {
   userInfo = Store.getState()?.user;
@@ -40,21 +42,7 @@ export default class ProfileEdit extends Block {
       value: Store.getState()?.user?.display_name || '',
     });
     const inputPhone = new InputEdit({ name: 'phone', value: Store.getState()?.user?.phone || '' });
-    const firstNameLine = new ProfileUserLine('div', {
-      name: 'Имя',
-      value: Store.getState()?.user?.first_name || '',
-    });
     const inputs = [inputEmail, inputLogin];
-    const buttonBack = new Button('a', {
-      class: 'button button-red',
-      value: 'Назад',
-      events: {
-        click: (e) => {
-          e.preventDefault();
-          Router.go('/profile');
-        },
-      },
-    });
     const buttonSave = new Button('button', {
       class: 'button-primary',
       value: 'Сохранить',
@@ -78,14 +66,6 @@ export default class ProfileEdit extends Block {
         },
       },
     });
-    const userAvatar = new ProfileUserLine('div', {
-      name: 'Аватар',
-      value: `<img class="profile-avatar" src=${
-        Store.getState().user.avatar
-          ? `https://ya-praktikum.tech/api/v2/resources${Store.getState().user.avatar}`
-          : 'https://fakeimg.pl/130x130/?text=png'
-      }>`,
-    });
 
     const buttonGoBack = new Button('a', {
       class: 'button-back',
@@ -96,7 +76,7 @@ export default class ProfileEdit extends Block {
       events: {
         click: (e) => {
           e.preventDefault();
-          Router.go('/messenger');
+          Router.go('/profile');
         },
       },
     });
@@ -108,14 +88,16 @@ export default class ProfileEdit extends Block {
       inputChatName,
       inputPhone,
       buttonSave,
-      firstNameLine,
-      buttonBack,
-      userAvatar,
       buttonGoBack,
     };
   }
 
   render(): DocumentFragment {
-    return this.compile(profileEditTmpl);
+    return this.compile(profileEditTmpl, {
+      firstNameLine: Store.getState()?.user?.first_name || '',
+      userAvatar: Store.getState()?.user?.avatar
+        ? `https://ya-praktikum.tech/api/v2/resources${Store.getState().user.avatar}`
+        : 'https://fakeimg.pl/130x131/?text=png',
+    });
   }
 }

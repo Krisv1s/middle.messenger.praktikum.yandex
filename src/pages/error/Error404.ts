@@ -1,12 +1,16 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 
-import errorTmpl from './error.tmpl';
 import FailWindow from '../../components/fail_window/fail_window';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const errorTmpl = require('./error.tmpl.pug');
 
 export default class Error404 extends Block {
   constructor() {
     super('div');
   }
+
+  public update(): void {}
 
   protected getAttributes(): Record<string, string> {
     return {

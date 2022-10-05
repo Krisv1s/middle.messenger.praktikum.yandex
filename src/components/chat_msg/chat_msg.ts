@@ -1,8 +1,10 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
+import Router from '../../core/Router';
 
 import Button from '../button/button';
-import Router from '../../utils/Router';
-import chatMsgTmpl from './chat_msg.tmpl';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const chatMsgTmpl = require('./chat_msg.tmpl.pug');
 
 type ChatLinkTypes = {
   message: string;

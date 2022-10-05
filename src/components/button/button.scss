@@ -1,11 +1,12 @@
-@import '../../styles/_const';
+@import "../../styles/_const";
 
 .button {
   background: transparent;
   border-color: transparent;
   border: 0;
+
   &-primary {
-    font-family: 'Inter';
+    font-family: Inter;
     height: 37px;
     background-color: $primary_color;
     color: $bg_color;
@@ -18,8 +19,9 @@
     margin-top: 62px;
     margin-bottom: 14px;
   }
+
   &-edit {
-    font-family: 'Inter';
+    font-family: Inter;
     height: 37px;
     color: $dark_color;
     border-radius: 8px;
@@ -31,48 +33,55 @@
     padding-top: 5px;
     padding-bottom: 5px;
     width: 210px;
+
     &:hover {
       background: #e4edfd;
     }
+
     span {
       display: flex;
       align-items: center;
     }
   }
+
   &-transparent {
-    font-family: 'Inter';
+    font-family: Inter;
     font-style: normal;
     font-weight: 500;
     font-size: 11px;
     line-height: 11px;
     color: $primary_color;
     width: 100%;
-    padding: 0px;
+    padding: 0;
   }
+
   &-profile {
-    font-family: 'Inter';
+    font-family: Inter;
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
     color: $primary_color;
-    padding-left: 0px;
+    padding-left: 0;
   }
+
   &-red {
     color: $red_color;
   }
+
   &-back {
     background-color: $primary_color;
     width: 28px;
     height: 28px;
-    border: 0px;
+    border: 0;
     border-radius: 50%;
     align-items: center;
     justify-content: center;
     display: flex;
   }
+
   &-profile-link {
-    font-family: 'Inter';
+    font-family: Inter;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -82,16 +91,19 @@
     display: flex;
     color: $placeholder_color;
     margin-right: 5px;
+
     span {
       display: flex;
       align-items: center;
     }
   }
+
   &-send {
     background: $primary_color;
     border-radius: 50%;
     width: 28px;
     height: 28px;
+
     span {
       display: flex;
       justify-content: center;

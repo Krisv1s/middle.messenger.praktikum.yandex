@@ -1,4 +1,4 @@
-@import '../../styles/_const';
+@import "../../styles/_const";
 
 .block-error {
   display: flex;
@@ -7,7 +7,7 @@
 }
 
 .code-error {
-  font-family: 'Inter';
+  font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 40px;
@@ -18,13 +18,13 @@
 }
 
 .text-error {
-  font-family: 'Inter';
+  font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 20px;
   text-align: center;
   color: $dark_color;
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 69px;
 }

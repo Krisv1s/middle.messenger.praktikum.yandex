@@ -1,9 +1,14 @@
-import CoreAPI from './CoreAPI';
-import { Options, MethodTypes } from './OptionsType';
+import Store from '../../core/Store';
+import Socket from '../../core/Socket';
 
 import ListUrl from './ListUrl';
-import Store from '../Store';
-import Socket from '../Socket';
+import CoreAPI from './CoreAPI';
+
+import { Options, MethodTypes } from './OptionsType';
+
+type responseType = {
+  currentTarget: Record<string, any>;
+};
 
 class ChatAPI extends CoreAPI {
   constructor() {
@@ -16,7 +21,7 @@ class ChatAPI extends CoreAPI {
       credentials: true,
       mode: 'cors',
     };
-    return this.http.get(this.url + ListUrl.chats, options).then((res) => {
+    return this.http.get(this.url + ListUrl.chats, options).then((res: responseType) => {
       try {
         Store.setState('chats', JSON.parse(res.currentTarget.response));
       } catch (err) {
@@ -40,14 +45,16 @@ class ChatAPI extends CoreAPI {
       credentials: true,
       body: {},
     };
-    return this.http.post(this.url + ListUrl.chatToken + data, options).then((res) => {
-      try {
-        Socket.open(id, data, JSON.parse(res.currentTarget.response).token);
-        Socket.message();
-      } catch (err) {
-        console.log(err);
-      }
-    });
+    return this.http
+      .post(this.url + ListUrl.chatToken + data, options)
+      .then((res: responseType) => {
+        try {
+          Socket.open(id, data, JSON.parse(res.currentTarget.response).token);
+          Socket.message();
+        } catch (err) {
+          console.log(err);
+        }
+      });
   }
 
   public getUser(data: Record<string, any>) {
@@ -88,7 +95,7 @@ class ChatAPI extends CoreAPI {
     };
     return this.http
       .get(`${this.url + ListUrl.chats}/${data.id}${ListUrl.users}`, options)
-      .then((res) => {
+      .then((res: responseType) => {
         try {
           const response = JSON.parse(res.currentTarget.response);
           let str = response?.[0]?.login || '';

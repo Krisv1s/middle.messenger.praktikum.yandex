@@ -1,6 +1,7 @@
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 
-import inputTmpl from './input.tmpl';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const inputTmpl = require('./input.tmpl.pug');
 
 type InputTypes = {
   class?: string;

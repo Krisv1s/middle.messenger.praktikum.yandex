@@ -1,9 +1,13 @@
-import CoreAPI from './CoreAPI';
-import { Options, MethodTypes } from './OptionsType';
+import Store from '../../core/Store';
 
 import ListUrl from './ListUrl';
-import Store from '../Store';
+import CoreAPI from './CoreAPI';
 
+import { Options, MethodTypes } from './OptionsType';
+
+type responseType = {
+  currentTarget: Record<string, any>;
+};
 class AuthAPI extends CoreAPI {
   constructor() {
     super();
@@ -32,7 +36,7 @@ class AuthAPI extends CoreAPI {
       method: MethodTypes.GET,
       credentials: true,
     };
-    return this.http.get(this.url + ListUrl.user, options).then((res) => {
+    return this.http.get(this.url + ListUrl.user, options).then((res: responseType) => {
       Store.setState('user', JSON.parse(res.currentTarget.response));
       return res;
     });

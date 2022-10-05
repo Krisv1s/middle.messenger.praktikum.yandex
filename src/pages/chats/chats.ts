@@ -1,16 +1,23 @@
+import Block from '../../core/Block';
+import Router from '../../core/Router';
+import Store from '../../core/Store';
+
+import AuthAPI from '../../utils/API/AuthAPI';
+import ChatAPI from '../../utils/API/ChatAPI';
+import renderDOM from '../../utils/renderDOM';
+
 import Button from '../../components/button/button';
 import ChatLink from '../../components/chat_link/chat_link';
 import ChatMessage from '../../components/chat_msg/chat_msg';
 import Input from '../../components/input/input';
 import InputForm from '../../components/input/input_form';
-import AuthAPI from '../../utils/API/AuthAPI';
-import ChatAPI from '../../utils/API/ChatAPI';
-import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import Router from '../../utils/Router';
-import Store from '../../utils/Store';
 
-import chatsTmpl from './chats.tmpl';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const chatsTmpl = require('./chats.tmpl.pug');
+
+type responseType = {
+  currentTarget: Record<string, any>;
+};
 
 export default class Chats extends Block {
   show: string;
@@ -168,7 +175,7 @@ export default class Chats extends Block {
           e.preventDefault();
           ChatAPI.getUser({
             login: inputUserId.value,
-          }).then((res) => {
+          }).then((res: responseType) => {
             try {
               const response = JSON.parse(res.currentTarget.response);
               if (response?.[0]) {
@@ -223,7 +230,7 @@ export default class Chats extends Block {
           }
           ChatAPI.getUser({
             login: inputUserIdDelete.value,
-          }).then((res) => {
+          }).then((res: responseType) => {
             try {
               const response = JSON.parse(res.currentTarget.response);
               if (response?.[0]) {
@@ -276,7 +283,7 @@ export default class Chats extends Block {
 
   public update() {
     const curStore = Store.getState();
-    const chatLinkList = [];
+    const chatLinkList: ChatLink[] = [];
     for (const key of curStore.chats || []) {
       if (!document.getElementById(`chat${key.id}`)) {
         chatLinkList.push(
@@ -304,7 +311,7 @@ export default class Chats extends Block {
     for (const key of chatLinkList) {
       renderDOM('.chats-left-list', key);
     }
-    const messageList = [];
+    const messageList: ChatMessage[] = [];
     for (const key of curStore?.messages || []) {
       console.log(key);
       if (!document.getElementById(`msg${key.id}`)) {

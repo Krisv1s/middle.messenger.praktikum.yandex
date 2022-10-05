@@ -1,7 +1,7 @@
 import CoreAPI from './CoreAPI';
-import { Options, MethodTypes } from './OptionsType';
-
 import ListUrl from './ListUrl';
+
+import { Options, MethodTypes } from './OptionsType';
 
 class UserAPI extends CoreAPI {
   constructor() {
