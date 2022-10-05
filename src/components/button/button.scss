@@ -1,4 +1,4 @@
-@import "../../styles/_const";
+@import '../../styles/_const';
 
 .button {
   background: transparent;
@@ -107,6 +107,21 @@
     span {
       display: flex;
       justify-content: center;
+    }
+  }
+
+  &-newchat {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: $primary_color;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    margin-right: 10px;
+    span {
+      display: flex;
+      align-self: center;
     }
   }
 }

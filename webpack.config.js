@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -16,7 +15,9 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.json'],
     alias: {
-      src: path.resolve(__dirname, 'src'),
+      '@': path.join(__dirname, './src'),
+      '@components': path.join(__dirname, './src/components/'),
+      '@static': path.join(__dirname, './static/'),
     },
   },
   optimization: {

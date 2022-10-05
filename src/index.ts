@@ -8,6 +8,7 @@ import Singup from './pages/singup/singup';
 import Profile from './pages/profile/profile';
 import ProfileEdit from './pages/profile/profile_edit';
 import Chats from './pages/chats/chats';
+import ProfilePassword from './pages/profile/profile_password';
 
 import './styles/global_styles.scss';
 import './styles/profile_pattern.scss';
@@ -27,4 +28,5 @@ Router.use('/404', Error404)
   .use('/settings', ProfileEdit)
   .use('/messenger', Chats)
   .use('/profile', Profile)
+  .use('/password', ProfilePassword)
   .start();

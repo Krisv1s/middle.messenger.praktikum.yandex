@@ -12,7 +12,9 @@ import ChatMessage from '../../components/chat_msg/chat_msg';
 import Input from '../../components/input/input';
 import InputForm from '../../components/input/input_form';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+const imgChat = require('@static/images/default_chat.png');
+const imgUser = require('@static/images/default_user.png');
+
 const chatsTmpl = require('./chats.tmpl.pug');
 
 type responseType = {
@@ -80,8 +82,9 @@ export default class Chats extends Block {
     });
 
     const buttonNewChat = new Button('button', {
-      class: 'button chat-unread',
-      value: '+',
+      class: 'button button-newchat',
+      value: `<svg style="color: white" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"> <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" fill="white"></path> </svg>   
+      `,
       events: {
         click: (e) => {
           e.preventDefault();
@@ -136,12 +139,43 @@ export default class Chats extends Block {
       },
     });
 
+    const inputSearch = new Input({
+      type: 'text',
+      placeholder: 'Поиск',
+      name: 'message',
+      id: 'input2',
+      class: 'input-search',
+      autocomplete: 'off',
+      value: Store.getState()?.currectSearch || '',
+      events: {
+        change: (e: InputEvent) => {
+          e.preventDefault();
+          Store.setState('currectSearch', (e.target as HTMLInputElement).value);
+        },
+        keyup: (e: KeyboardEvent) => {
+          e.preventDefault();
+          if (e.key === 'Enter') {
+            Store.setState('currectSearch', (e.target as HTMLInputElement).value);
+          }
+        },
+      },
+    });
+
     const inputMessage = new Input({
       type: 'text',
       placeholder: 'Сообщение',
       name: 'message',
       id: 'input0',
       class: 'input input-message',
+      autocomplete: 'off',
+      events: {
+        keyup: (e: KeyboardEvent) => {
+          e.preventDefault();
+          if (e.key === 'Enter') {
+            ChatAPI.sendMsg(inputMessage.value);
+          }
+        },
+      },
     });
 
     const buttonSendMessage = new Button('button', {
@@ -270,6 +304,7 @@ export default class Chats extends Block {
       buttonNewChat,
       buttonAddUserToChat,
       inputMessage,
+      inputSearch,
       buttonSendMessage,
       buttonDeleteUserFromChat,
       inputUserId,
@@ -285,7 +320,12 @@ export default class Chats extends Block {
     const curStore = Store.getState();
     const chatLinkList: ChatLink[] = [];
     for (const key of curStore.chats || []) {
-      if (!document.getElementById(`chat${key.id}`)) {
+      if (
+        !document.getElementById(`chat${key.id}`) &&
+        key.title
+          .toLocaleLowerCase()
+          .indexOf((Store.getState()?.currectSearch || '').toLocaleLowerCase()) !== -1
+      ) {
         chatLinkList.push(
           new ChatLink({
             title: key.title,
@@ -297,7 +337,7 @@ export default class Chats extends Block {
               click: (e) => {
                 e.preventDefault();
                 console.log(key);
-                if (!key.avatar) key.avatar = 'https://fakeimg.pl/34x34/?text=png';
+                if (!key.avatar) key.avatar = imgChat.default;
                 else key.avatar = `https://ya-praktikum.tech/api/v2/resources${key.avatar}`;
                 Store.setState('currectChat', key);
                 ChatAPI.getChatUserList({ id: key?.id });
@@ -333,6 +373,14 @@ export default class Chats extends Block {
   render(): DocumentFragment {
     return this.compile(chatsTmpl, {
       currectChat: Store.getState()?.currectChat,
+      currectProfile: {
+        avatar: Store.getState()?.user?.avatar
+          ? `https://ya-praktikum.tech/api/v2/resources${Store.getState().user.avatar}`
+          : imgUser.default,
+        name: `${Store.getState()?.user?.first_name || ''} ${
+          Store.getState()?.user?.second_name || ''
+        }`,
+      },
       msg1: this.props.msg1,
       msg2: this.props.msg2,
       form1Styles: this.props.form1Styles,

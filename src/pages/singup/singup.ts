@@ -7,7 +7,6 @@ import AuthAPI from '../../utils/API/AuthAPI';
 import Button from '../../components/button/button';
 import InputForm from '../../components/input/input_form';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const singupTmpl = require('./singup.tmpl.pug');
 
 type responseType = {

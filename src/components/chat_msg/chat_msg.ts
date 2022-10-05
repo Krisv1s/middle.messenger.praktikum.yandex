@@ -3,7 +3,8 @@ import Router from '../../core/Router';
 
 import Button from '../button/button';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import normalTime from '../../utils/normalTime';
+
 const chatMsgTmpl = require('./chat_msg.tmpl.pug');
 
 type ChatLinkTypes = {
@@ -57,6 +58,9 @@ export default class ChatMessage extends Block {
   public render() {
     return this.compile(chatMsgTmpl, {
       message: this.props.message,
+      time: `${normalTime(new Date(this.props.time).getHours())}:${normalTime(
+        new Date(this.props.time).getMinutes()
+      )}`,
     });
   }
 }

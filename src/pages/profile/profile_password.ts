@@ -10,9 +10,9 @@ import InputEdit from '../../components/input/input_edit';
 
 const imgUser = require('@static/images/default_user.png');
 
-const profileEditTmpl = require('./profile_edit.tmpl.pug');
+const profilePasswordTmpl = require('./profile_password.tmpl.pug');
 
-export default class ProfileEdit extends Block {
+export default class ProfilePassword extends Block {
   userInfo = Store.getState()?.user;
 
   constructor() {
@@ -28,22 +28,11 @@ export default class ProfileEdit extends Block {
   public update(): void {}
 
   protected getChildren(): Record<string, Block> {
-    const inputEmail = new InputEdit({ name: 'email', value: Store.getState()?.user?.email || '' });
-    const inputLogin = new InputEdit({ name: 'login', value: Store.getState()?.user?.login || '' });
-    const inputFirstName = new InputEdit({
-      name: 'first_name',
-      value: Store.getState()?.user?.first_name || '',
-    });
-    const inputSecondName = new InputEdit({
-      name: 'second_name',
-      value: Store.getState()?.user?.second_name || '',
-    });
-    const inputChatName = new InputEdit({
-      name: 'login',
-      value: Store.getState()?.user?.display_name || '',
-    });
-    const inputPhone = new InputEdit({ name: 'phone', value: Store.getState()?.user?.phone || '' });
-    const inputs = [inputEmail, inputLogin];
+    const inputCurrectPassword = new InputEdit({ name: 'password', value: '', type: 'password' });
+    const inputNewPassword = new InputEdit({ name: 'password', value: '', type: 'password' });
+    const inputNewPasswordAgain = new InputEdit({ name: 'password', value: '', type: 'password' });
+
+    const inputs = [inputCurrectPassword, inputNewPassword, inputNewPasswordAgain];
     const buttonSave = new Button('button', {
       class: 'button-primary',
       value: 'Сохранить',
@@ -56,13 +45,9 @@ export default class ProfileEdit extends Block {
             if (!key.validate()) resValidate = false;
           }
           if (!resValidate) return;
-          UserAPI.changeUserProfile({
-            email: inputEmail.value,
-            login: inputLogin.value,
-            first_name: inputFirstName.value,
-            second_name: inputSecondName.value,
-            phone: inputPhone.value,
-            display_name: inputChatName.value,
+          UserAPI.changePassword({
+            oldPassword: inputCurrectPassword.value,
+            newPassword: inputNewPassword.value,
           });
         },
       },
@@ -82,19 +67,16 @@ export default class ProfileEdit extends Block {
       },
     });
     return {
-      inputEmail,
-      inputLogin,
-      inputFirstName,
-      inputSecondName,
-      inputChatName,
-      inputPhone,
+      inputCurrectPassword,
+      inputNewPassword,
+      inputNewPasswordAgain,
       buttonSave,
       buttonGoBack,
     };
   }
 
   render(): DocumentFragment {
-    return this.compile(profileEditTmpl, {
+    return this.compile(profilePasswordTmpl, {
       firstNameLine: Store.getState()?.user?.first_name || '',
       userAvatar: Store.getState()?.user?.avatar
         ? `https://ya-praktikum.tech/api/v2/resources${Store.getState().user.avatar}`

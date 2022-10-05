@@ -4,7 +4,6 @@ import isValid from '../../utils/isValid';
 
 import Input from './input';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const inputEditTmpl = require('./input_edit.tmpl.pug');
 
 type InputFormTypes = {
@@ -25,6 +24,7 @@ export default class InputEdit extends Block {
     const input = new Input({
       name: this.props.name,
       value: this.props.value,
+      type: this.props.type || undefined,
       class: 'input-edit',
       events: {
         blur: this.validate.bind(this),
